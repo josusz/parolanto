@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import { query } from '../config/db.config';
+import { query } from '../config/db.config.js';
 
 router.get('/', (req, res) => {
     const sql = 'SELECT * FROM TB_USUARIO';

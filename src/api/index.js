@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 import cors from 'cors';
-import usersRouter from './routes/usuarios';
+import usersRouter from './routes/usuarios.js';
 
 const app = express();
 const port = 3000;

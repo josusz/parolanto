@@ -15,4 +15,8 @@ db.connect((err) => {
     console.log('Conectado ao banco de dados MySQL.');
 });
 
-export default db;
+const query = (sql, params, callback) => {
+    db.query(sql, params, callback);
+};
+
+export { query };
