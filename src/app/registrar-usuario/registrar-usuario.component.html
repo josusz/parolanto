@@ -28,23 +28,22 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="nomeUsuario" class="form-label text-secondary">Seu nome</label>
-              <input type="text" class="form-control border-primary" id="nomeUsuario"
-                placeholder="Preenchimento obrigatório">
+              <input type="text" class="form-control border-primary" formControlName="nomeUsuario" placeholder="Preenchimento obrigatório">
             </div>
             <div class="col-md-6">
               <label for="emailUsuario" class="form-label text-secondary">Seu melhor e-mail</label>
-              <input type="email" class="form-control border-primary" id="emailUsuario" placeholder="nome@dominio.com">
+              <input type="email" class="form-control border-primary" formControlName="emailUsuario" placeholder="nome@dominio.com">
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="senhaUsuario" class="form-label text-secondary">Senha</label>
-              <input type="password" id="senhaUsuario" class="form-control border-primary"
+              <input type="password" formControlName="senhaUsuario" class="form-control border-primary"
                 aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
             </div>
             <div class="col-md-6">
               <label for="senhaUsuarioConfirmacao" class="form-label text-secondary">Confirme a senha</label>
-              <input type="password" id="senhaUsuarioConfirmacao" class="form-control border-primary"
+              <input type="password" formControlName="senhaUsuarioConfirmacao" class="form-control border-primary"
                 aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
             </div>
           </div>
@@ -64,7 +63,7 @@
           </div>
           <div class="row mb-3">
             <div class="d-grid gap-2 col-6 mx-auto">
-              <button class="btn btn-primary" type="button">Registrar-se</button>
+              <button class="btn btn-primary" type="button" (click)="registrarUsuario()">Registrar-se</button>
             </div>
           </div>
           <div class="text-center">

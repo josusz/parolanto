@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { UsuarioService } from '../usuario.service';
 @Component({
   selector: 'app-registrar-usuario',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './registrar-usuario.component.html',
   styleUrl: './registrar-usuario.component.css'
 })
