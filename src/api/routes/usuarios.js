@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
 const validaUsuario = [
     check('nomeUsuario')
         .not().isEmpty().trim().withMessage('É obrigatório informar o nome.')
-        .isAlpha('pt-BR', { ignore: ' ' }).withMessage('Informe apenas texto no nome.')
         .isLength({ min: 3 }).withMessage('O nome do usuário deve ter ao menos 3 caracteres.')
         .isLength({ max: 100 }).withMessage('O nome do usuário deve ter no máximo 100 caracteres.'),
     check('emailUsuario')
