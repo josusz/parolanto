@@ -75,10 +75,10 @@ router.post('/', validaUsuario, async (req, res) => {
         query(sql, values, (err, result) => {
             if (err) {
                 console.error('Erro ao inserir usuário:', err);
-                return res.status(400).json({ error: 'Erro ao cadastrar o usuário' });
+                return res.status(400).json({ error: 'Erro ao cadastrar o usuário.' });
             }
             //resposta de sucesso com uma mensagem
-            res.status(201).json({ message: 'Selecione "Autenticar-se" para explorar a Parolanto.', result });
+            res.status(201).json({ message: 'Sucesso ao cadastrar o usuário.', result });
         });
     }
 });
