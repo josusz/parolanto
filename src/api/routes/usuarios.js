@@ -78,7 +78,7 @@ router.post('/', validaUsuario, async (req, res) => {
                 return res.status(400).json({ error: 'Erro ao cadastrar o usuário' });
             }
             //resposta de sucesso com uma mensagem
-            res.status(201).json({ message: 'Cadastro realizado com sucesso!', result });
+            res.status(201).json({ message: 'Selecione "Autenticar-se" para explorar a Parolanto.', result });
         });
     }
 });
