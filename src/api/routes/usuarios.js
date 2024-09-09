@@ -21,21 +21,42 @@ router.get('/', (req, res) => {
 const validaUsuario = [
     check('nomeUsuario')
         .not().isEmpty().trim().withMessage('É obrigatório informar o nome.')
+        .isAlpha('pt-BR', { ignore: ' ' }).withMessage('Informe apenas texto no nome.')
         .isLength({ min: 3 }).withMessage('O nome do usuário deve ter ao menos 3 caracteres.')
-        .isLength({ max: 100 }).withMessage('O nome do usuário deve ter no máximo 100 caracteres.'),
+        .isLength({ max: 100 }).withMessage('O nome do usuário deve ter no máximo 100 caracteres.')
+        .custom(async (value, { req }) => {
+            try {
+                const sql = 'SELECT * FROM TB_USUARIO WHERE USR_NOME = ?';
+                const results = await query(sql, [value]);
+                console.log('Resultados da consulta:', results); //log para depuração
+
+                if (results.length > 0 && !req.params.id) {
+                    return Promise.reject(`O nome ${value} já está em uso. Por favor, escolha outro.`);
+                }
+            } catch (error) {
+                console.error('Erro ao verificar nome de usuário:', error);
+                return Promise.reject('Erro ao verificar o nome de usuário.');
+            }
+        }),
     check('emailUsuario')
         .not().isEmpty().trim().withMessage('O e-mail é obrigatório.')
         .isLowercase().withMessage('O e-mail não pode ter MAIÚSCULOS.')
         .isEmail().withMessage('O e-mail deve ser válido.')
-        /*.custom(async (value, { req }) => {
-            //consulta SQL para verificar se o e-mail já existe no banco de dados MySQL
-            const sql = 'SELECT * FROM TB_USUARIO WHERE USR_EMAIL = ?';
-            const results = await query(sql, [value]);
-            //verifica se o e-mail já existe e se não é uma atualização de um usuário existente
-            if (results.length > 0 && !req.params.id) {
-                return Promise.reject(`O email ${value} já existe!`);
+        .custom(async (value, { req }) => {
+            try {
+                console.log('Verificando e-mail:', value); //log para depuração
+                const sql = 'SELECT * FROM TB_USUARIO WHERE USR_EMAIL = ?';
+                const results = await query(sql, [value]);
+                console.log('Resultados da consulta:', results); //log para depuração
+
+                if (results.length > 0 && !req.params.id) {
+                    return Promise.reject(`O e-mail ${value} já existe!`);
+                }
+            } catch (error) {
+                console.error('Erro ao verificar e-mail:', error);
+                return Promise.reject('Erro ao verificar o e-mail.');
             }
-        })*/,
+        }),
     check('senhaUsuario')
         .not().isEmpty().trim().withMessage('A senha é obrigatória.')
         .isLength({ min: 6 }).withMessage('A senha deve ter no mínimo 6 caracteres.')
@@ -64,22 +85,25 @@ router.post('/', validaUsuario, async (req, res) => {
             errors: schemaErrors.array()
         });
     } else {
-        //criptografia da senha
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.senhaUsuario, salt);
-
-        //SQL para inserir o usuário
-        const sql = 'INSERT INTO TB_USUARIO (USR_EMAIL, USR_SENHA, USR_NOME) VALUES (?, ?, ?)';
-        const values = [req.body.emailUsuario, hashedPassword, req.body.nomeUsuario];
-
-        query(sql, values, (err, result) => {
-            if (err) {
-                console.error('Erro ao inserir usuário:', err);
-                return res.status(400).json({ error: 'Erro ao cadastrar o usuário.' });
+        try {
+            if (!req.body || !req.body.senhaUsuario || !req.body.emailUsuario || !req.body.nomeUsuario) {
+                return res.status(400).json({ error: 'Dados obrigatórios não foram fornecidos.' });
             }
-            //resposta de sucesso com uma mensagem
-            res.status(201).json({ message: 'Sucesso ao cadastrar o usuário.', result });
-        });
+
+            //criptografia da senha
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(req.body.senhaUsuario, salt);
+
+            //SQL para inserir o usuário
+            const sql = 'INSERT INTO TB_USUARIO (USR_EMAIL, USR_SENHA, USR_NOME) VALUES (?, ?, ?)';
+            const values = [req.body.emailUsuario, hashedPassword, req.body.nomeUsuario];
+
+            await query(sql, values); //versão promise da função query
+            return res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
+        } catch (err) {
+            console.error('Erro ao inserir usuário:', err);
+            return res.status(400).json({ error: 'Erro ao cadastrar o usuário' });
+        }
     }
 });
 

@@ -1,22 +1,15 @@
-import { createConnection } from 'mysql2';
+import { createPool } from 'mysql2/promise'; //createpool para suportar promessas
 
-const db = createConnection({
+const pool = createPool({
     host: '127.0.0.1',
     user: 'root',
     password: '',
     database: 'parolanto'
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Erro ao conectar ao banco de dados:', err);
-        return;
-    }
-    console.log('Conectado ao banco de dados MySQL.');
-});
-
-const query = (sql, params, callback) => {
-    db.query(sql, params, callback);
+const query = async (sql, params) => {
+    const [rows] = await pool.execute(sql, params);
+    return rows;
 };
 
 export { query };
