@@ -74,7 +74,9 @@ const validaUsuario = [
                 throw new Error('A confirmação de senha deve ser igual à senha.');
             }
             return true;
-        })
+        }),
+    check('termoConcordado')
+        .equals('true').withMessage('Você deve concordar com os Termos de Uso.')
 ];
 
 //POST de usuário

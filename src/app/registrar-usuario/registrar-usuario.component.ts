@@ -22,7 +22,8 @@ export class RegistrarUsuarioComponent {
       nomeUsuario: [''],
       emailUsuario: [''],
       senhaUsuario: [''],
-      senhaUsuarioConfirmacao: ['']
+      senhaUsuarioConfirmacao: [''],
+      termoConcordado: [false]
     });
   }
 
