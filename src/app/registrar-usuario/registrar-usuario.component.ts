@@ -23,7 +23,7 @@ export class RegistrarUsuarioComponent {
       emailUsuario: [''],
       senhaUsuario: [''],
       senhaUsuarioConfirmacao: [''],
-      termoConcordado: [false]
+      concordaTermos: [false]
     });
   }
 

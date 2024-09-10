@@ -75,8 +75,8 @@ const validaUsuario = [
             }
             return true;
         }),
-    check('termoConcordado')
-        .equals('true').withMessage('Você deve concordar com os Termos de Uso.')
+    check('concordaTermos')
+        .equals('true').withMessage('Você deve concordar com as Condições de Utilização.')
 ];
 
 //POST de usuário
