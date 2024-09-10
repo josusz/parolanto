@@ -76,7 +76,13 @@ const validaUsuario = [
             return true;
         }),
     check('concordaTermos')
-        .equals('true').withMessage('Você deve concordar com as Condições de Utilização.')
+        .isBoolean().withMessage('Você deve concordar com as Condições de Utilização.')
+        .custom((value) => {
+            if (!value) {
+                throw new Error('Você deve concordar com as Condições de Utilização.');
+            }
+            return true;
+        })
 ];
 
 //POST de usuário
@@ -97,8 +103,8 @@ router.post('/', validaUsuario, async (req, res) => {
             const hashedPassword = await bcrypt.hash(req.body.senhaUsuario, salt);
 
             //SQL para inserir o usuário
-            const sql = 'INSERT INTO TB_USUARIO (USR_EMAIL, USR_SENHA, USR_NOME) VALUES (?, ?, ?)';
-            const values = [req.body.emailUsuario, hashedPassword, req.body.nomeUsuario];
+            const sql = 'INSERT INTO TB_USUARIO (USR_EMAIL, USR_SENHA, USR_NOME, USR_TERMO_CONCORDADO) VALUES (?, ?, ?, ?)';
+            const values = [req.body.emailUsuario, hashedPassword, req.body.nomeUsuario, req.body.concordaTermos];
 
             await query(sql, values); //versão promise da função query
             return res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
