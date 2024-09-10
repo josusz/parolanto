@@ -1,1 +1,68 @@
-<p>logar-usuario works!</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticar-se</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row vh-100 align-items-center">
+            <div class="col-12 col-md-6">
+                <form class="w-100 p-4 p-md-5">
+                    <div>
+                        <label class="fs-3">
+                            <img class="mb-2" src="images/logo-parolanto.svg" alt="Logo Parolanto">
+                            Parolanto
+                        </label>
+                    </div>
+                    <div class="text-center">
+                        <h2>Autenticar-se</h2>
+                        <p class="text-secondary">Inicie a sessão para explorar!</p>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md">
+                            <label for="emailUsuario" class="form-label text-secondary">Seu e-mail</label>
+                            <input type="email" class="form-control border-primary" formControlName="emailUsuario"
+                                placeholder="nome@dominio.com">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md">
+                            <label for="senhaUsuario" class="form-label text-secondary">Senha</label>
+                            <input type="password" formControlName="senhaUsuario" class="form-control border-primary"
+                                aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 align-items-center">
+                        <div class="form-check text-secondary form-text">
+                            <input class="form-check-input" type="checkbox" id="LembreMim" formControlName="lembreMim">
+                            <label class="form-check-label" for="lembreMim">
+                                Lembre-se de mim
+                            </label>
+                        </div>
+                        <div class="col-md-6 text-md-end" style="font-size: 0.875rem;">
+                            <a href="#">Esqueci-me da senha</a>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-primary" type="button">Entrar</button>
+                    </div>
+                    <div class="text-center">
+                        <label>
+                            Não tem uma conta?
+                            <a [routerLink]="['/registrar-usuario']">Aperte aqui para registrar-se</a>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="col p-0 h-100">
+                <img class="h-100 w-100 object-fit-cover" src="images/graphic-side2.svg" alt="Background">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
