@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { UsuarioService } from '../usuario.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-registrar-usuario',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ModalComponent],
+  imports: [ReactiveFormsModule, CommonModule, ModalComponent, RouterModule],
   templateUrl: './registrar-usuario.component.html',
   styleUrl: './registrar-usuario.component.css'
 })
