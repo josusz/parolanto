@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Autenticar-se</title>
 </head>
-<body>
+<body style="background-image: url('/images/logo-background2-parolanto.svg');">
   <div class="container-fluid">
     <div class="row vh-100 align-items-center">
       <div class="col-12 col-md-6">
-        <form class="mx-auto p-3" style="max-width: 500px;">
+        <form class="mx-auto p-3" style="max-width: 500px;" [formGroup]="formGroupLoginUser">
           <div>
             <label class="fs-3">
               <img class="mb-2" src="images/logo-parolanto.svg" alt="Logo Parolanto">

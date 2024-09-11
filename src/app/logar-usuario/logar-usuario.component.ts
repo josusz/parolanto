@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { UsuarioService } from '../usuario.service';
 
 @Component({
   selector: 'app-logar-usuario',
@@ -11,5 +12,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './logar-usuario.component.css'
 })
 export class LogarUsuarioComponent {
+  formGroupLoginUser: FormGroup;
 
+  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder) {
+    this.formGroupLoginUser = this.formBuilder.group({
+      emailUsuario: [''],
+      senhaUsuario: [''],
+      lembreMim: ['']
+    });
+  }
 }
