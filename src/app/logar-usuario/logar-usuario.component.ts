@@ -18,7 +18,7 @@ export class LogarUsuarioComponent {
     this.formGroupLoginUser = this.formBuilder.group({
       emailUsuario: [''],
       senhaUsuario: [''],
-      lembreMim: ['']
+      lembreMim: [false]
     });
   }
 }
