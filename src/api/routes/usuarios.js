@@ -85,7 +85,7 @@ const validaUsuario = [
         })
 ];
 
-//POST de usuário
+//POST de usuário (registro)
 router.post('/', validaUsuario, async (req, res) => {
     const schemaErrors = validationResult(req);
     if (!schemaErrors.isEmpty()) {
@@ -115,6 +115,7 @@ router.post('/', validaUsuario, async (req, res) => {
     }
 });
 
+//POST de usuário (autenticação)
 const validaLogin = [
     check('emailUsuario')
         .not().isEmpty().trim().withMessage('O e-mail é obrigatório!')
@@ -123,5 +124,50 @@ const validaLogin = [
         .not().isEmpty().trim().withMessage('A senha é obrigatória!')
         .isLength({ min: 6 }).withMessage('A senha deve ter no mínimo 6 caracteres.')
 ]
+
+router.post('/login', validaLogin, async (req, res) => {
+    const schemaErrors = validationResult(req)
+    if (!schemaErrors.isEmpty()) {
+        return res.status(403).json(({ errors: schemaErrors.array() }))
+    }
+    //obtendo os valores do login
+    const { emailUsuario, senhaUsuario } = req.body
+    try {
+        //verificando se o e-mail informado existe no banco de dados
+        const sql = 'SELECT * FROM TB_USUARIO WHERE USR_EMAIL = ?';
+        const results = await query(sql, [emailUsuario]);
+        //se não houver resultados, é que o e-mail não existe
+        if (!results.length)
+            return res.status(404).json({
+                errors: [{
+                    value: emailUsuario,
+                    msg: 'O e-mail informado não está cadastrado',
+                    param: 'emailUsuario'
+                }]
+            })
+
+        //se o e-mail existir, comparamos se a senha está correta  
+        const isMatch = await bcrypt.compare(senhaUsuario, usuario[0].USR_SENHA)
+        if (!isMatch) {
+            return res.status(403).json({
+                errors: [{
+                    value: senhaUsuario,
+                    msg: 'A senha informada está incorreta',
+                    param: 'senhaUsuario'
+                }]
+            })
+        }
+
+        const usuario = results[0];
+
+        //se a autenticação for bem-sucedida
+        return res.status(200).json({
+            message: 'Autenticação bem-sucedida!',
+            usuario: { id: usuario.USR_ID, nome: usuario.USR_NOME, email: usuario.USR_EMAIL }
+        });
+    } catch (e) {
+        console.error(e)
+    }
+})
 
 export default router;
