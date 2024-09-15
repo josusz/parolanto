@@ -86,7 +86,7 @@ const validaUsuario = [
 ];
 
 //POST de usuário (registro)
-router.post('/', validaUsuario, async (req, res) => {
+router.post('/registro', validaUsuario, async (req, res) => {
     const schemaErrors = validationResult(req);
     if (!schemaErrors.isEmpty()) {
         return res.status(403).json({
@@ -141,24 +141,24 @@ router.post('/login', validaLogin, async (req, res) => {
             return res.status(404).json({
                 errors: [{
                     value: emailUsuario,
-                    msg: 'O e-mail informado não está cadastrado',
+                    msg: 'O e-mail informado não está cadastrado.',
                     param: 'emailUsuario'
                 }]
             })
 
+        const usuario = results[0];
+
         //se o e-mail existir, comparamos se a senha está correta  
-        const isMatch = await bcrypt.compare(senhaUsuario, usuario[0].USR_SENHA)
+        const isMatch = await bcrypt.compare(senhaUsuario, usuario.USR_SENHA)
         if (!isMatch) {
             return res.status(403).json({
                 errors: [{
                     value: senhaUsuario,
-                    msg: 'A senha informada está incorreta',
+                    msg: 'A senha informada está incorreta.',
                     param: 'senhaUsuario'
                 }]
             })
         }
-
-        const usuario = results[0];
 
         //se a autenticação for bem-sucedida
         return res.status(200).json({

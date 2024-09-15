@@ -13,15 +13,11 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  getUsuarios(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
-  }
-
   registrarUsuario(usuario: registroUsuario): Observable<registroUsuario> {
-    return this.http.post<registroUsuario>(this.apiUrl, usuario);
+    return this.http.post<registroUsuario>(`${this.apiUrl}/registro`, usuario);
   }
 
   logarUsuario(usuario: loginUsuario): Observable<loginUsuario> {
-    return this.http.post<loginUsuario>(this.apiUrl, usuario);
+    return this.http.post<loginUsuario>(`${this.apiUrl}/login`, usuario);
   }
 }

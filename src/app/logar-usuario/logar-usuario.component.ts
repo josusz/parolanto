@@ -31,7 +31,7 @@ export class LogarUsuarioComponent {
     this.usuarioService.logarUsuario(this.formGroupLoginUser.value).subscribe({
       next: (response) => {
         console.log('Usuário autenticado com sucesso!', response);
-        this.successMessages = ['Autenticação bem-sucedida! Bem-vindo(a) à Parolanto!'];
+        this.successMessages = ['Bem-vindo(a) à Parolanto!'];
         this.openModal('success', 'Autenticado com sucesso!');
       },
       error: (error) => {
