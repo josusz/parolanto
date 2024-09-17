@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alterar senha</title>
+</head>
+<body style="background-image: url('/images/logo-background2-parolanto.svg');">
+  <div class="container-fluid">
+    <div class="row vh-100 align-items-center">
+      <div class="col-12 col-md-6">
+        <form class="mx-auto p-3" style="max-width: 500px;" [formGroup]="formGroupChangePasswordUser">
+          <div>
+            <label class="fs-3">
+              <img class="mb-2" src="images/logo-parolanto.svg" alt="Logo Parolanto">
+              Parolanto
+            </label>
+          </div>
+          <div class="text-center p-3">
+            <h2>Alterar senha</h2>
+            <p class="text-secondary">Informe o endereço de e-mail associado à sua conta e enviaremos um <i>link</i>
+              para redefini-la.</p>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md">
+              <label for="emailUsuario" class="form-label text-secondary">Seu e-mail</label>
+              <input type="email" class="form-control border-primary" formControlName="emailUsuario"
+                placeholder="nome@dominio.com">
+            </div>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary" type="button">Alterar</button>
+          </div>
+          <div class="text-center p-3">
+            <label>
+              <a href="javascript:void(0);" (click)="voltarPaginaAnterior()">Retornar à página anterior</a>
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="col p-0 h-100">
+        <img class="h-100 w-100 object-fit-cover" src="images/graphic-side2.svg" alt="Background">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
