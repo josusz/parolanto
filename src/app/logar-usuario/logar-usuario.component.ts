@@ -37,7 +37,7 @@ export class LogarUsuarioComponent {
       error: (error) => {
         console.error('Erro ao autenticar usuário:', error);
         //atualiza mensagens de erro com base na resposta da API
-        if (error.status === 403 && error.error.errors) {
+        if (error.error && error.error.errors) {
           this.errorMessages = error.error.errors.map((err: any) => err.msg);
         } else {
           this.errorMessages = ['Ocorreu um erro inesperado.'];

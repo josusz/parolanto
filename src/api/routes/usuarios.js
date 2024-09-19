@@ -170,4 +170,43 @@ router.post('/login', validaLogin, async (req, res) => {
     }
 })
 
+//POST de usuário (ENVIA "LINK" PARA ALTERAÇÃO DE SENHA)
+const validaEmail = [
+    check('emailUsuario')
+        .not().isEmpty().trim().withMessage('O e-mail é obrigatório!')
+        .isEmail().withMessage('Informe um e-mail válido.')
+]
+
+router.post('/alteracaoSenhaLink', validaEmail, async (req, res) => {
+    const schemaErrors = validationResult(req)
+    if (!schemaErrors.isEmpty()) {
+        return res.status(403).json(({ errors: schemaErrors.array() }))
+    }
+
+    const { emailUsuario } = req.body
+    try {
+        //verificando se o e-mail informado existe no banco de dados
+        const sql = 'SELECT * FROM TB_USUARIO WHERE USR_EMAIL = ?';
+        const results = await query(sql, [emailUsuario]);
+        //se não houver resultados, é que o e-mail não existe
+        if (!results.length)
+            return res.status(404).json({
+                errors: [{
+                    value: emailUsuario,
+                    msg: 'O e-mail informado não está cadastrado.',
+                    param: 'emailUsuario'
+                }]
+            })
+
+        const usuario = results[0];
+
+        return res.status(200).json({
+            message: 'Um e-mail com uma senha temporária foi enviado para você. Basta selecionar o link e criar uma nova senha.',
+            usuario: { id: usuario.USR_ID, nome: usuario.USR_NOME, email: usuario.USR_EMAIL }
+        });
+    } catch (e) {
+        console.error(e)
+    }
+})
+
 export default router;
