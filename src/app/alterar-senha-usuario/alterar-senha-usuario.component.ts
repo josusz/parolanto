@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { UsuarioService } from '../usuario.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-alterar-senha-usuario',
@@ -18,7 +19,7 @@ export class AlterarSenhaUsuarioComponent {
 
   @ViewChild(ModalComponent) modalComponent?: ModalComponent;
 
-  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder, private location: Location) {
+  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder, private location: Location, private router: Router) {
     this.formGroupChangePasswordUser = this.formBuilder.group({
       emailUsuario: ['']
     });
@@ -28,6 +29,7 @@ export class AlterarSenhaUsuarioComponent {
     this.usuarioService.alterarSenhaLink(this.formGroupChangePasswordUser.value).subscribe({
       next: (response) => {
         console.log('Link de alteração de senha enviado ao e-mail cadastrado!', response);
+        this.router.navigate(['/alterar-senha-confirmacao']);
       },
       error: (error) => {
         console.error('Erro ao encontrar o e-mail do usuário:', error);

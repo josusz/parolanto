@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alterar senha</title>
+</head>
+<body style="background-image: url('/images/logo-background2-parolanto.svg');">
+  <div class="container-fluid">
+    <div class="row vh-100 align-items-center">
+      <div class="col-12 col-md-6">
+        <form class="mx-auto p-3" style="max-width: 500px;">
+          <div>
+            <label class="fs-3">
+              <img class="mb-2" src="images/logo-parolanto.svg" alt="Logo Parolanto">
+              Parolanto
+            </label>
+          </div>
+          <div class="text-center p-3">
+            <img class="mb-2" src="images/success.svg" alt="Logo Parolanto">
+            <h1 class="fw-bold" style="color: #0048B3;">Sucesso!</h1>
+            <p class="text-secondary">Um e-mail com uma senha temporária foi enviado para você. Basta selecionar o
+              <i>link</i> e criar uma nova senha.</p>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary" type="button" [routerLink]="['/logar-usuario']">Retonar à
+              autenticação</button>
+          </div>
+        </form>
+      </div>
+      <div class="col p-0 h-100">
+        <img class="h-100 w-100 object-fit-cover" src="images/graphic-side2.svg" alt="Background">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
