@@ -11,5 +11,6 @@ export const routes: Routes = [
     { path: 'logar-usuario', component: LogarUsuarioComponent },
     { path: 'alterar-senha', component: AlterarSenhaUsuarioComponent },
     { path: 'alterar-senha-confirmacao', component: AlterarSenhaUsuarioConfirmacaoComponent },
-    { path: '', redirectTo: 'registrar-usuario', pathMatch: 'full' }
+    { path: '', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
+    { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' }
 ];

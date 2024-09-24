@@ -14,7 +14,7 @@
       </a>
     </div>
   </nav>
-  <hr>
+  <hr class="m-0">
   <div class="container-fluid">
     <div class="row justify-content-center align-items-center mt-5">
       <div class="col-12 col-md-8">
@@ -24,16 +24,17 @@
             <i>Explore um universo de línguas criadas por mentes como a sua.</i>
           </h1>
           <p class="fs-4 text-secondary">A Parolanto é uma comunidade vibrante dedicada à criação e exploração de
-            línguas construídas. Aprenda, imagine, desenvolva e compartilhe!</p>
+            línguas construídas. Sinta-se <i>livre</i> para aprender, imaginar, desenvolver e compartilhar com outros
+            criadores neste espaço!</p>
         </div>
         <div class="row mb-3">
           <div class="d-grid gap-2 col-6 mx-auto">
-            <button class="btn btn-primary" type="button">Registrar-se</button>
+            <button class="btn btn-primary" type="button" [routerLink]="['/registrar-usuario']">Registrar-se</button>
           </div>
         </div>
         <div class="row mb-3">
           <div class="d-grid gap-2 col-6 mx-auto">
-            <button class="btn btn-outline-dark" type="button">Autenticar-se</button>
+            <button class="btn btn-outline-dark" type="button" [routerLink]="['/logar-usuario']">Autenticar-se</button>
           </div>
         </div>
       </div>
