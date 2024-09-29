@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { UsuarioService } from '../usuario.service';
 import { ModalComponent } from "../modal/modal.component";
 
@@ -19,7 +19,7 @@ export class LogarUsuarioComponent {
 
   @ViewChild(ModalComponent) modalComponent?: ModalComponent;
 
-  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder) {
+  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder, private router: Router) {
     this.formGroupLoginUser = this.formBuilder.group({
       emailUsuario: [''],
       senhaUsuario: [''],
@@ -31,8 +31,12 @@ export class LogarUsuarioComponent {
     this.usuarioService.logarUsuario(this.formGroupLoginUser.value).subscribe({
       next: (response) => {
         console.log('Usuário autenticado com sucesso!', response);
-        this.successMessages = ['Bem-vindo(a) à Parolanto!'];
-        this.openModal('success', 'Autenticado com sucesso!');
+        
+        //armazenar o token ou informações do usuário
+        localStorage.setItem('token', response.access_token);
+
+        //redirecionar para a página "feed"
+        this.router.navigate(['/feed']);
       },
       error: (error) => {
         console.error('Erro ao autenticar usuário:', error);

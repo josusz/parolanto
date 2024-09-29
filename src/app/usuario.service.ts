@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { registroUsuario } from './registro-usuario';
 import { loginUsuario } from './login-usuario';
 import { alteracaoSenhaLink } from './alteracao-senha-link';
+import { loginUsuarioResponse } from './login-usuario-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class UsuarioService {
     return this.http.post<registroUsuario>(`${this.apiUrl}/registro`, usuario);
   }
 
-  logarUsuario(usuario: loginUsuario): Observable<loginUsuario> {
-    return this.http.post<loginUsuario>(`${this.apiUrl}/login`, usuario);
+  logarUsuario(usuario: loginUsuario): Observable<loginUsuarioResponse> {
+    return this.http.post<loginUsuarioResponse>(`${this.apiUrl}/login`, usuario);
   }
 
   alterarSenhaLink(usuario: alteracaoSenhaLink): Observable<alteracaoSenhaLink> {

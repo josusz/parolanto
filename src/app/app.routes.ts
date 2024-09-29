@@ -5,6 +5,7 @@ import { AlterarSenhaUsuarioComponent } from './alterar-senha-usuario/alterar-se
 import { AlterarSenhaUsuarioConfirmacaoComponent } from './alterar-senha-usuario-confirmacao/alterar-senha-usuario-confirmacao.component';
 import { PaginaInicialParolantoComponent } from './pagina-inicial-parolanto/pagina-inicial-parolanto.component';
 import { FeedComponent } from './feed/feed.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
     { path: 'pagina-inicial-parolanto', component: PaginaInicialParolantoComponent },
@@ -12,7 +13,7 @@ export const routes: Routes = [
     { path: 'logar-usuario', component: LogarUsuarioComponent },
     { path: 'alterar-senha', component: AlterarSenhaUsuarioComponent },
     { path: 'alterar-senha-confirmacao', component: AlterarSenhaUsuarioConfirmacaoComponent },
-    { path: 'feed', component: FeedComponent },
+    { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' }
 ];

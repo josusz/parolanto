@@ -3,6 +3,7 @@ const router = Router();
 import { query } from '../config/db.config.js';
 import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 //teste de método GET
 router.get('/', (req, res) => {
@@ -161,12 +162,20 @@ router.post('/login', validaLogin, async (req, res) => {
         }
 
         //se a autenticação for bem-sucedida
+        const token = jwt.sign(
+            { usuario: { id: usuario.USR_ID } },
+            process.env.SECRET_KEY,
+            { expiresIn: process.env.EXPIRES_IN }
+        );
+
         return res.status(200).json({
             message: 'Autenticação bem-sucedida!',
+            access_token: token,
             usuario: { id: usuario.USR_ID, nome: usuario.USR_NOME, email: usuario.USR_EMAIL }
         });
     } catch (e) {
-        console.error(e)
+        console.error(e);
+        return res.status(500).json({ error: 'Erro no servidor' });
     }
 })
 
