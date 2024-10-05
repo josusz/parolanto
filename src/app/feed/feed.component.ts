@@ -1,21 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativo.component";
 
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [],
+  imports: [NavbarInterativoComponent],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css'
 })
 export class FeedComponent {
-  constructor(private router: Router) { }
-
-  logout() {
-    //remove o token do localStorage
-    localStorage.removeItem('token');
-
-    //redireciona para a página inicial
-    this.router.navigate(['/pagina-inicial-parolanto']);
-  }
 }
