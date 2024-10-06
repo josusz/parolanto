@@ -34,6 +34,7 @@ export class LogarUsuarioComponent {
         
         //armazenar o token ou informações do usuário
         localStorage.setItem('token', response.access_token);
+        localStorage.setItem('nomeUsuario', response.usuario.nome); 
 
         //redirecionar para a página "feed"
         this.router.navigate(['/feed']);

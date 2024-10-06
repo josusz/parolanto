@@ -26,4 +26,8 @@ export class UsuarioService {
   alterarSenhaLink(usuario: alteracaoSenhaLink): Observable<alteracaoSenhaLink> {
     return this.http.post<alteracaoSenhaLink>(`${this.apiUrl}/alteracaoSenhaLink`, usuario);
   }
+
+  getNomeUsuario(): string | null {
+    return localStorage.getItem('nomeUsuario');
+  }
 }

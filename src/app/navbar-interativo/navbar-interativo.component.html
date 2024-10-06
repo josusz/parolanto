@@ -12,9 +12,9 @@
         <img class="me-2" src="images/logo-parolanto.svg" alt="Logo Parolanto">
         <span class="fs-3">Parolanto</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="bi bi-three-dots fs-3"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <i class="bi bi-arrow-left-circle-fill text-primary fs-3"></i>
@@ -25,12 +25,15 @@
           </div>
         </form>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-bell text-body-secondary"></i></a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bell text-body-secondary"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item">Aguardando implementação...</a></li>
+            </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Usuário
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+              *ngIf="nomeUsuario">{{ nomeUsuario }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#" (click)="logout()">Desconectar-se</a></li>
