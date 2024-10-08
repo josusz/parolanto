@@ -1,0 +1,15 @@
+@media (max-width: 991px) {
+  .navbar-brand {
+    justify-content: center;
+    flex-grow: 1;
+  }
+
+  .icone-menu {
+    order: -1;
+    font-size: 2.31rem;
+  }
+}
+
+.icone-menu{
+  font-size: 1.75rem;
+}
