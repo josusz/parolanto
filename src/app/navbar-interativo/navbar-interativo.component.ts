@@ -12,9 +12,14 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarInterativoComponent {
   nomeUsuario: string | null = '';
+  iconeNotificacao: string = 'bi bi-bell';
 
   constructor(private router: Router, private usuarioService: UsuarioService) { 
     this.nomeUsuario = this.usuarioService.getNomeUsuario();
+  }
+
+  alteraIcone(isHovered: boolean) {
+    this.iconeNotificacao = isHovered ? 'bi bi-bell-fill' : 'bi bi-bell';
   }
 
   logout() {
