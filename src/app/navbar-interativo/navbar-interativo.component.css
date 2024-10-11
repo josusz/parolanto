@@ -2,7 +2,7 @@
   display: none;
 }
 
-.icone-menu{
+.icone-menu {
   font-size: 1.75rem;
 }
 
@@ -20,5 +20,17 @@
   .notificacoes-text {
     display: inline;
     font-size: 1rem;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.9375rem;
+  }
+
+  .nav-item.dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
 }

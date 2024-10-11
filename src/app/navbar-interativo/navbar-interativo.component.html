@@ -26,20 +26,21 @@
             <input class="form-control" type="search" placeholder="Pesquisar..." aria-label="Search">
           </div>
         </form>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (mouseenter)="alteraIcone(true)" (mouseleave)="alteraIcone(false)">
               <i [ngClass]="iconeNotificacao" class="text-body-secondary"></i>
-              <span class="notificacoes-text ms-2">Notificações</span>
+              <span class="notificacoes-text ms-2">Avisos</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item">Aguardando implementação...</a></li>
+              <li><a class="dropdown-item">Pendente...</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown d-flex align-items-center">
-            <img src="images/user-avatar-default.svg" class="rounded-circle" alt="Foto de perfil do usuário autenticado" style="width: 40px; height: 40px;">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-              *ngIf="nomeUsuario">{{ nomeUsuario }}
+              *ngIf="nomeUsuario">
+              <img src="images/user-avatar-default.svg" class="rounded-circle" alt="Foto de perfil do usuário autenticado" style="width: 40px; height: 40px;">
+              {{ nomeUsuario }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#" (click)="logout()">Desconectar-se</a></li>
