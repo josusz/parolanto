@@ -6,6 +6,10 @@
   font-size: 1.75rem;
 }
 
+.offcanvas {
+  width: 12.5rem;
+}
+
 @media (max-width: 991px) {
   .navbar-brand {
     justify-content: center;
@@ -25,12 +29,17 @@
   .navbar-nav {
     flex-direction: row;
     justify-content: center;
-    gap: 0.9375rem;
+    gap: 3.5rem;
   }
 
   .nav-item.dropdown .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
+  }
+
+  .input-pesquisar {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }
