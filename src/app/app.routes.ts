@@ -6,6 +6,8 @@ import { AlterarSenhaUsuarioConfirmacaoComponent } from './alterar-senha-usuario
 import { PaginaInicialParolantoComponent } from './pagina-inicial-parolanto/pagina-inicial-parolanto.component';
 import { FeedComponent } from './feed/feed.component';
 import { AuthGuard } from './auth.guard';
+import { ListaConlangComponent } from './lista-conlang/lista-conlang.component';
+import { AcessarProjetoComponent } from './acessar-projeto/acessar-projeto.component';
 
 export const routes: Routes = [
     { path: 'pagina-inicial-parolanto', component: PaginaInicialParolantoComponent },
@@ -15,5 +17,7 @@ export const routes: Routes = [
     { path: 'alterar-senha-confirmacao', component: AlterarSenhaUsuarioConfirmacaoComponent },
     { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
-    { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' }
+    { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
+    { path: 'conlangs', component: ListaConlangComponent},
+    {path: "conlang_detail/:id", component: AcessarProjetoComponent}
 ];

@@ -1,6 +1,8 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import usersRouter from './routes/usuarios.js';
+import conlangsRouter from './routes/conlangs.js';
+import vocabRouter from './routes/vocab.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,6 +17,8 @@ app.use(cors({
 app.use(json());
 
 app.use('/usuarios', usersRouter);
+app.use('/conlangs', conlangsRouter);
+app.use('/vocab', vocabRouter);
 
 app.get('/api', (req, res) => {
     res.status(200).json({

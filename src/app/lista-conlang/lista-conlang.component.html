@@ -1,0 +1,12 @@
+<div class="row">
+  <div *ngFor="let item of items" class="col-md-4">
+    <div class="card mb-4 shadow-sm" [routerLink]="['/conlang_detail', item.PRJ_ID]" style="cursor: pointer;">
+      <div class="card-header">
+        <h5 class="card-title">{{ item.PRJ_NOME }}</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ item.PRJ_DESCRICAO }}</p>
+      </div>
+    </div>
+  </div>
+</div>

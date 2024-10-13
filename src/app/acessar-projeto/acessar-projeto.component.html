@@ -1,0 +1,23 @@
+<!--
+<div *ngIf="projeto">
+    <p>código projeto: {{projeto.PRJ_ID}}</p>
+    <p>nome: {{projeto.PRJ_NOME}}</p>
+    <p>descricao: {{projeto.PRJ_DESCRICAO}}</p>
+    <p>fono: {{projeto.PRJ_FONOTATICA}}</p>
+    <p>nome usuario: {{projeto.USR_NOME}}</p>
+    <p>código usuario: {{projeto.USR_ID}}</p>
+</div>-->
+
+<div class="container mt-4">
+    <h1 class="display-4">{{ projeto.PRJ_NOME }}</h1>
+    <h4 class="text-muted">Por: {{ projeto.USR_NOME }}</h4>
+    
+    <div class="form-group">
+      <label for="description">Descrição</label>
+      <textarea id="description" class="form-control" rows="4" [value]="projeto.PRJ_DESCRICAO" readonly></textarea>
+    </div>
+    <div class="form-group">
+        <label for="description">Fonotática</label>
+        <textarea id="description" class="form-control" rows="4" [value]="projeto.PRJ_FONOTATICA" readonly></textarea>
+      </div>
+  </div>
