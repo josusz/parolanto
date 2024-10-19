@@ -9,14 +9,10 @@
 .icone-menu {
   font-size: 2rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
   margin-left: 1.25rem;
   margin-right: 1.25rem;
 }
 
-.girar-icone {
-  transform: rotate(180deg);
-}
 
 @media (max-width: 991px) {
   .navbar-brand {

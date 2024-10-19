@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UsuarioService } from '../usuario.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar-interativo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar-interativo.component.html',
   styleUrl: './navbar-interativo.component.css'
 })
@@ -23,7 +23,7 @@ export class NavbarInterativoComponent {
     this.iconeNotificacao = isHovered ? 'bi bi-bell-fill' : 'bi bi-bell';
   }
 
-  girarIcone() {
+  inverteDirecao() {
     this.iconeMenu = !this.iconeMenu;
   }
 
