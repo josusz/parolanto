@@ -11,8 +11,8 @@ import { AcessarProjetoComponent } from './acessar-projeto/acessar-projeto.compo
 
 export const routes: Routes = [
     { path: 'pagina-inicial-parolanto', component: PaginaInicialParolantoComponent },
-    { path: 'registrar-usuario', component: RegistrarUsuarioComponent },
-    { path: 'logar-usuario', component: LogarUsuarioComponent },
+    { path: 'registrar-usuario', component: RegistrarUsuarioComponent, canActivate: [AuthGuard] },
+    { path: 'logar-usuario', component: LogarUsuarioComponent, canActivate: [AuthGuard] },
     { path: 'alterar-senha', component: AlterarSenhaUsuarioComponent },
     { path: 'alterar-senha-confirmacao', component: AlterarSenhaUsuarioConfirmacaoComponent },
     { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
