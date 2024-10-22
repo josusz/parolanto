@@ -48,7 +48,9 @@
               {{ nomeUsuario }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#" (click)="logout()">Desconectar-se</a></li>
+              <li><a class="dropdown-item" href="#" [routerLink]="['/perfil-usuario-autenticado']"><i class="bi bi-person"></i> Perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" (click)="logout()"><i class="bi bi-box-arrow-left"></i> Desconectar-se</a></li>
             </ul>
           </li>
         </ul>
