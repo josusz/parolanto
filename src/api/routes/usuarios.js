@@ -4,6 +4,7 @@ import { query } from '../config/db.config.js';
 import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import auth from '../middleware/auth.js';
 
 //teste de método GET
 router.get('/', (req, res) => {
@@ -217,5 +218,22 @@ router.post('/alteracaoSenhaLink', validaEmail, async (req, res) => {
         console.error(e)
     }
 })
+
+router.get('/perfilUsuarioAutenticado', auth, async (req, res) => {
+    try {
+        const usuario = await query('SELECT * FROM TB_USUARIO WHERE USR_ID = ?', [req.usuario.id]);
+        if (usuario.length) {
+            res.json({
+                id: usuario[0].USR_ID,
+                nome: usuario[0].USR_NOME,
+                email: usuario[0].USR_EMAIL,
+            });
+        } else {
+            res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Erro no servidor.' });
+    }
+});
 
 export default router;

@@ -9,8 +9,8 @@ export default function auth(req, res, next) {
     }
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        req.usuario = decoded.usuario; // Adiciona o usuário ao request
-        next(); // Prossegue para o próximo middleware ou rota
+        req.usuario = decoded.usuario; //adiciona o usuário ao request
+        next(); //prossegue para o próximo middleware ou rota
     } catch (e) {
         res.status(403).json({ error: `Token inválido: ${e.message}` });
         console.error(e.message);
