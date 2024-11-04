@@ -11,8 +11,8 @@ export class VocabService {
 
   constructor(private http: HttpClient) { }
 
-  getVocab(): Observable<vocabulo[]> {
-    return this.http.get<vocabulo[]>(this.apiUrl);
+  getVocab(idprj: number): Observable<vocabulo[]> {
+    return this.http.get<vocabulo[]>(`${this.apiUrl}/${idprj}`);
   }
 
   addWord(word: vocabulo): Observable<vocabulo> {
@@ -21,5 +21,9 @@ export class VocabService {
 
   removeWord(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  editWord(word: vocabulo): Observable<vocabulo> {
+    return this.http.put<vocabulo>(`${this.apiUrl}/${word.VOC_ID}`, word);
   }
 }
