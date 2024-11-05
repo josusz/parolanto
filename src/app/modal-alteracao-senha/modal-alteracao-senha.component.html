@@ -1,16 +1,29 @@
-<div class="modal fade" id="alterarSenhaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="alterarSenhaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal em desenvolvimento...</h5>
+        <i class="bi bi-shield-lock-fill text-warning fs-3 me-2"></i>
+        <h5 class="modal-title">Redefinição</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget urna non mi tincidunt scelerisque aliquet vitae massa. Curabitur hendrerit tellus at ultrices ornare. In nec tristique ligula, at mollis massa. Mauris semper fermentum nisi eget facilisis. Pellentesque massa felis, auctor sit amet lectus id, facilisis porta tellus. Morbi luctus, sapien ac scelerisque tincidunt, est lorem gravida libero, at malesuada purus erat sit amet dui. Nulla sagittis non sapien et vehicula.</p>
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label text-secondary">Senha atual</label>
+            <input type="password" class="form-control" id="recipient-name" aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label text-secondary">Senha desejada</label>
+            <input type="password" class="form-control" id="recipient-name" aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label text-secondary">Confirme</label>
+            <input type="password" class="form-control" id="recipient-name" aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+        <button type="button" class="btn btn-success w-100">Confirmar</button>
       </div>
     </div>
   </div>
