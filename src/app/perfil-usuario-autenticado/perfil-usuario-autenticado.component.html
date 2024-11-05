@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil</title>
 </head>
-
 <body style="background-image: url('/images/logo-background3-parolanto.svg');">
   <app-navbar-interativo></app-navbar-interativo>
   <section>
@@ -43,9 +41,9 @@
                     <a href="#" class="text-decoration-none fs-4"><i class="bi bi-link-45deg"></i></a>
                   </div>
                 </div>
-                <a href="" class="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">
-                  <div class="card-footer text-center">Alterar senha</div>
-                </a>
+                <div class="card-footer text-center cursor-pointer custom-hover" (click)="openModal()">
+                  Alterar senha
+                </div>
               </div>
             </div>
           </div>
@@ -53,6 +51,6 @@
       </div>
     </div>
   </section>
+  <app-modal-alteracao-senha></app-modal-alteracao-senha>
 </body>
-
 </html>
