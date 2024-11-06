@@ -43,4 +43,8 @@ export class UsuarioService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/perfilUsuarioAutenticado`, { headers });
   }
+
+  atualizarAvatar(avatar: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/atualizarAvatar`, { avatar });
+  }
 }

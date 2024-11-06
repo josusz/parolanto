@@ -15,9 +15,25 @@
             <div class="row g-0">
               <div
                 class="col-md-4 text-center text-white bg-primary bg-gradient d-flex flex-column justify-content-center align-items-center">
-                <img src="images/user-avatar-default.svg" alt="Avatar"
+                <img [src]="usuario?.avatar || 'images/user-avatar-default.svg'" alt="Avatar"
                   class="img-fluid my-3 rounded-circle border border-white border-2" style="width: 80px;" />
                 <h5>{{ usuario?.nome }}</h5>
+                <div class="btn-group mt-2">
+                  <button class="btn btn-dark btn-sm mb-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#avatarOptions" aria-expanded="false" aria-controls="avatarOptions">
+                    <i class="bi bi-pencil-square"></i> Avatar
+                  </button>
+                </div>
+                <div class="collapse" id="avatarOptions">
+                  <ul class="list-group list-group-flush">
+                    <li *ngFor="let avatar of avatares" class="list-group-item bg-transparent border-0">
+                      <a class="text-center bg-transparent" href="#" (click)="atualizarAvatar(avatar)">
+                        <img class="rounded-circle border border-white border-2" [src]="avatar" alt="Avatar"
+                          style="width: 60px;">
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div class="col-md-8">
                 <div class="card-body p-4">
