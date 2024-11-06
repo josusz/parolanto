@@ -38,13 +38,20 @@
     </table>
   
     <div class="form-group">
-      <h4>Add New Word</h4>
-      <label for="spelling">Romanização</label>
-      <input type="text" id="spelling" class="form-control" [(ngModel)]="newWord.VOC_ROMANIZACAO" required>
-  
-      <label for="transcription">Transcrição</label>
-      <input type="text" id="transcription" class="form-control" [(ngModel)]="newWord.VOC_TRANSCRICAO" required>
-  
-      <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
-    </div>
+      <div class="form-group">
+        <h4>Add New Word</h4>
+        <label for="spelling">Romanização</label>
+        <input type="text" id="spelling" class="form-control" [(ngModel)]="newWord.VOC_ROMANIZACAO" required>
+    
+        <label for="transcription">Transcrição</label>
+        <input type="text" id="transcription" class="form-control" [(ngModel)]="newWord.VOC_TRANSCRICAO" required>
+        
+        <div *ngIf="editingMode; then  edit; else add"></div>
+        <ng-template #edit>
+          <button class="btn btn-primary mt-3" (click)="confirmEditWord()">Editar vocábulo</button>
+        </ng-template>
+        <ng-template #add>
+          <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
+        </ng-template>
+      </div>
   </div>

@@ -52,11 +52,12 @@ router.put('/:id', async (req, res) => {
             SET VOC_ROMANIZACAO = ?, VOC_TRANSCRICAO = ?, VOC_PRJID = ?
             WHERE VOC_ID = ?;
         `;
-        const values = [idprj, spelling, transcription, wordId];
-        await query(sql, values);
+        const values = [spelling, transcription, idprj, wordId];
 
-        if (results[0].affectedRows === 0) {
-            return res.status(404).json({ error: 'Vocábulo não encotnrado.' });
+        const result = await query(sql, values);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Vocábulo não encontrado.' });
         }
 
         res.status(200).json({ message: 'Vocábulo editado com sucesso.' });
