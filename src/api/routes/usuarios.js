@@ -245,4 +245,73 @@ router.get('/perfilUsuarioAutenticado', auth, async (req, res) => {
 	}
 });
 
+
+//validações para a alteração de senha (usuário autenticado)
+const validaSenha = [
+	check('senhaDesejadaUsuario')
+		.not().isEmpty().trim().withMessage('A senha desejada é obrigatória.')
+		.isLength({ min: 6 }).withMessage('A senha desejada deve ter no mínimo 6 caracteres.')
+		.isStrongPassword({
+			minLength: 6,
+			minLowercase: 1,
+			minUppercase: 1,
+			minSymbols: 1,
+			minNumbers: 1
+		}).withMessage('A senha desejada informada não é segura. Informe no mínimo 1 caractere maiúsculo, 1 caractere minúsculo, 1 número e 1 caractere especial.'),
+	check('senhaDesejadaConfirmacaoUsuario')
+		.not().isEmpty().trim().withMessage('É obrigatório confirmar a senha desejada.')
+		.custom((value, { req }) => {
+			if (value !== req.body.senhaDesejadaUsuario) {
+				throw new Error('A confirmação de senha desejada deve ser igual à senha desejada.');
+			}
+			return true;
+		})
+];
+
+router.post('/alteracaoSenha', auth, validaSenha, async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+	}
+
+	const { senhaAtualUsuario } = req.body
+
+	try {
+		const usuario = await query('SELECT * FROM TB_USUARIO WHERE USR_ID = ?', [req.usuario.id]);
+
+		//verifica se o usuário existe e se a senha não é nula ou indefinida
+		if (!usuario || usuario.length === 0 || !usuario[0].USR_SENHA) {
+			console.error('Usuário não encontrado ou senha inválida:', usuario);
+			return res.status(404).json({ message: 'Usuário não encontrado ou senha inválida.' });
+		}
+
+		const isMatch = await bcrypt.compare(senhaAtualUsuario, usuario[0].USR_SENHA)
+		if (!isMatch) {
+			return res.status(403).json({
+				errors: [{
+					value: senhaAtualUsuario,
+					msg: 'A senha atual informada está incorreta.',
+					param: 'senhaAtualUsuario'
+				}]
+			})
+		}
+
+		//criptografia da senha
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(req.body.senhaDesejadaUsuario, salt);
+
+		//SQL para atualizar a senha do usuário
+		const sql = 'UPDATE TB_USUARIO SET USR_SENHA = ? WHERE USR_ID = ?';
+		const values = [hashedPassword, req.usuario.id];
+
+		await query(sql, values); //versão promise da função query
+		return res.status(201).json({ message: 'Senha alterada com sucesso!' });
+
+	} catch (error) {
+		console.error('Erro ao processar as informações do usuário:', error);
+		res.status(500).json({ message: 'Erro no servidor.' });
+	}
+
+});
+
 export default router;

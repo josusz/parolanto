@@ -1,29 +1,45 @@
-<div class="modal fade" id="alterarSenhaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="alterarSenhaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <i class="bi bi-shield-lock-fill text-warning fs-3 me-2"></i>
-        <h5 class="modal-title">Redefinição</h5>
+        <h5 class="modal-title"><i>Alteração de senha</i></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="formGroupUpdatePasswordUser">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label text-secondary">Senha atual</label>
-            <input type="password" class="form-control" id="recipient-name" aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+            <label for="senhaAtualUsuario" class="col-form-label text-secondary">Senha atual</label>
+            <input type="password" class="form-control" formControlName="senhaAtualUsuario"
+              aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
           </div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label text-secondary">Senha desejada</label>
-            <input type="password" class="form-control" id="recipient-name" aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+            <label for="senhaDesejadaUsuario" class="col-form-label text-secondary">Senha desejada</label>
+            <input type="password" class="form-control" formControlName="senhaDesejadaUsuario"
+              aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
           </div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label text-secondary">Confirme</label>
-            <input type="password" class="form-control" id="recipient-name" aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
+            <label for="senhaDesejadaConfirmacaoUsuario" class="col-form-label text-secondary">Confirme a senha
+              desejada</label>
+            <input type="password" class="form-control" formControlName="senhaDesejadaConfirmacaoUsuario"
+              aria-describedby="passwordHelpBlock" placeholder="Preenchimento obrigatório">
           </div>
         </form>
+        <div *ngIf="successMessages.length > 0" class="alert alert-success">
+          <i class="bi bi-check-circle-fill me-2"></i>Observe o(s) <i>item(s)</i> abaixo:
+          <ul>
+            <li *ngFor="let message of successMessages">{{ message }}</li>
+          </ul>
+        </div>
+        <div *ngIf="errorMessages.length > 0" class="alert alert-danger">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>Ops! Observe as <i>incosistências</i> abaixo:
+          <ul>
+            <li *ngFor="let message of errorMessages">{{ message }}</li>
+          </ul>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success w-100">Confirmar</button>
+        <button type="button" class="btn btn-success w-100" (click)="alterarSenhaUsuario()">Confirmar<i class="bi bi-check-circle ms-2"></i></button>
       </div>
     </div>
   </div>
