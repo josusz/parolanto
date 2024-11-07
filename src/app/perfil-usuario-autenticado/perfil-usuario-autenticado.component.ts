@@ -14,17 +14,26 @@ export class PerfilUsuarioAutenticadoComponent implements OnInit {
   usuario: any;
   projetos: any[] = [];
   avatares = [ 
+    'images/user-avatar-default.svg',
     'images/user-avatar1.svg',
     'images/user-avatar2.svg',
-    'images/user-avatar3.svg',
-    'images/user-avatar4.svg'
+    'images/user-avatar3.svg'
   ]
+
+  errorMessages: string[] = [];
+  successMessages: string[] = [];
 
   @ViewChild(ModalAlteracaoSenhaComponent) modalAlteracaoSenhaComponent?: ModalAlteracaoSenhaComponent;
 
   constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    const successMessage = sessionStorage.getItem('avatarSuccessMessage');
+    if (successMessage) {
+      this.successMessages = [successMessage];
+      sessionStorage.removeItem('avatarSuccessMessage');
+    }
+
     this.usuarioService.getUsuarioAutenticado().subscribe({
       next: (data) => {
         this.usuario = data,
@@ -40,11 +49,24 @@ export class PerfilUsuarioAutenticadoComponent implements OnInit {
 
   atualizarAvatar(novoAvatar: string) {
     this.usuarioService.atualizarAvatar(novoAvatar).subscribe({
-      next: () => {
+      next: (response) => {
         this.usuario.avatar = novoAvatar;
-        console.log('Avatar atualizado com sucesso!');
+        window.location.reload();
+        if (response.message) {
+          sessionStorage.setItem('avatarSuccessMessage', response.message);
+        }
+        this.errorMessages = []; //limpa mensagens de erro anteriores
       },
-      error: (err) => console.error('Erro ao atualizar avatar:', err)
+      error: (error) => {
+        console.error('Erro ao alterar a senha do usuário:', error);
+        //atualiza mensagens de erro com base na resposta da API
+        if (error.error && error.error.errors) {
+          this.errorMessages = error.error.errors.map((err: any) => err.msg);
+        } else {
+          this.errorMessages = ['Ocorreu um erro inesperado.'];
+        }
+        this.successMessages = []; //limpa qualquer mensagem de sucesso anterior
+      }
     });
   }
 }

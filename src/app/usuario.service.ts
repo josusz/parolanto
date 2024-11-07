@@ -11,6 +11,9 @@ import { alteracaoSenha } from './alteracao-senha';
   providedIn: 'root'
 })
 export class UsuarioService {
+  avatarUsuario(): string | null {
+    throw new Error('Method not implemented.');
+  }
 
   private apiUrl = 'http://localhost:3000/usuarios';
 
@@ -38,6 +41,10 @@ export class UsuarioService {
     return localStorage.getItem('nomeUsuario');
   }
 
+  getAvatarUsuario(): string | null {
+    return localStorage.getItem('avatarUsuario');
+  }
+
   getUsuarioAutenticado(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -45,6 +52,8 @@ export class UsuarioService {
   }
 
   atualizarAvatar(avatar: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/atualizarAvatar`, { avatar });
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<any>(`${this.apiUrl}/atualizarAvatar`, { avatar }, { headers });
   }
 }

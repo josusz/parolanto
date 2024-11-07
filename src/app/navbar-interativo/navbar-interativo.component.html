@@ -43,7 +43,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
               *ngIf="nomeUsuario">
-              <img src="images/user-avatar-default.svg" class="rounded-circle"
+              <img [src]="avatarUsuario || 'images/user-avatar-default.svg'" class="rounded-circle"
                 alt="Foto de perfil do usuário autenticado" style="width: 40px; height: 40px;">
               {{ nomeUsuario }}
             </a>

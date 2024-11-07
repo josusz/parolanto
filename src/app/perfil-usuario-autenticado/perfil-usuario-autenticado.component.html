@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil</title>
 </head>
+
 <body style="background-image: url('/images/logo-background3-parolanto.svg');">
   <app-navbar-interativo></app-navbar-interativo>
   <section>
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-start">
         <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div *ngIf="successMessages.length > 0" class="alert alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i>Observe o(s) <i>item(s)</i> abaixo:
+            <ul>
+              <li *ngFor="let message of successMessages">{{ message }}</li>
+            </ul>
+          </div>
+          <div *ngIf="errorMessages.length > 0" class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>Ops! Observe as <i>incosistências</i> abaixo:
+            <ul>
+              <li *ngFor="let message of errorMessages">{{ message }}</li>
+            </ul>
+          </div>
           <div class="card mb-3 overflow-hidden">
             <div class="row g-0">
               <div
@@ -21,22 +35,22 @@
                 <div class="btn-group mt-2">
                   <button class="btn btn-dark btn-sm mb-2" type="button" data-bs-toggle="collapse"
                     data-bs-target="#avatarOptions" aria-expanded="false" aria-controls="avatarOptions">
-                    <i class="bi bi-pencil-square"></i> Avatar
+                    <i class="bi bi-pencil-square me-1"></i>Avatar
                   </button>
                 </div>
                 <div class="collapse" id="avatarOptions">
                   <ul class="list-group list-group-flush">
                     <li *ngFor="let avatar of avatares" class="list-group-item bg-transparent border-0">
-                      <a class="text-center bg-transparent" href="#" (click)="atualizarAvatar(avatar)">
-                        <img class="rounded-circle border border-white border-2" [src]="avatar" alt="Avatar"
-                          style="width: 60px;">
+                      <a class="text-center bg-transparent" (click)="atualizarAvatar(avatar)">
+                        <img class="rounded-circle border border-white border-2 cursor-pointer"
+                          [src]="avatar || 'images/user-avatar-default.svg'" alt="Avatar" style="width: 60px;">
                       </a>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-md-8">
-                <div class="card-body p-4">
+              <div class="col-md-8 d-flex flex-column">
+                <div class="card-body p-4 flex-grow-1">
                   <h6>Informações</h6>
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
@@ -52,9 +66,6 @@
                     <div class="col-12" *ngFor="let projeto of projetos">
                       <p class="text-muted mb-0">{{ projeto.nome }}</p>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-start mt-3">
-                    <a href="#" class="text-decoration-none fs-4"><i class="bi bi-link-45deg"></i></a>
                   </div>
                 </div>
                 <div class="card-footer text-center cursor-pointer custom-hover" (click)="openModal()">
