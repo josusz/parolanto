@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil</title>
 </head>
-
 <body style="background-image: url('/images/logo-background3-parolanto.svg');">
   <app-navbar-interativo></app-navbar-interativo>
   <section>
@@ -62,14 +60,21 @@
                   <h6>Projetos</h6>
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
-                    <h6>Recentes</h6>
-                    <div class="col-12" *ngFor="let projeto of projetos">
-                      <p class="text-muted mb-0">{{ projeto.nome }}</p>
+                    <div *ngIf="projetos.length > 0; else semProjetos">
+                      <h6>Recentes</h6>
+                      <div class="col-12" *ngFor="let projeto of projetos">
+                        <p class="mb-0"><a [routerLink]="['/conlang_detail', projeto.id]"
+                            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{
+                            projeto.nome }}</a></p>
+                      </div>
                     </div>
+                    <ng-template #semProjetos>
+                      <p class="text-muted">Você ainda não <i>criou</i> nenhum projeto.</p>
+                    </ng-template>
                   </div>
                 </div>
                 <div class="card-footer text-center cursor-pointer custom-hover" (click)="openModal()">
-                  <i>Alterar senha</i>
+                  Alterar senha
                 </div>
               </div>
             </div>

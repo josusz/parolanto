@@ -3,10 +3,11 @@ import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativ
 import { UsuarioService } from '../usuario.service';
 import { CommonModule } from '@angular/common';
 import { ModalAlteracaoSenhaComponent } from '../modal-alteracao-senha/modal-alteracao-senha.component';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-perfil-usuario-autenticado',
   standalone: true,
-  imports: [NavbarInterativoComponent, CommonModule, ModalAlteracaoSenhaComponent],
+  imports: [NavbarInterativoComponent, CommonModule, ModalAlteracaoSenhaComponent, RouterModule],
   templateUrl: './perfil-usuario-autenticado.component.html',
   styleUrl: './perfil-usuario-autenticado.component.css'
 })
