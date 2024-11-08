@@ -1,0 +1,23 @@
+body {
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  min-height: 100vh;
+}
+
+@media (min-width: 900px) {
+  body {
+      background-size: 22.25rem;
+  }
+}
+
+@media (max-width: 899px) {
+  body {
+      background-size: 20.375rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+      background-size: 13.5rem;
+  }
+}

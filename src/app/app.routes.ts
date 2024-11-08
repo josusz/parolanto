@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { ListaConlangComponent } from './lista-conlang/lista-conlang.component';
 import { AcessarProjetoComponent } from './acessar-projeto/acessar-projeto.component';
 import { PerfilUsuarioAutenticadoComponent } from './perfil-usuario-autenticado/perfil-usuario-autenticado.component';
+import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 
 export const routes: Routes = [
     { path: 'pagina-inicial-parolanto', component: PaginaInicialParolantoComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
     { path: 'alterar-senha-confirmacao', component: AlterarSenhaUsuarioConfirmacaoComponent },
     { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
     { path: 'perfil-usuario-autenticado', component: PerfilUsuarioAutenticadoComponent, canActivate: [AuthGuard] },
+    { path: 'perfil-usuario/:id', component: PerfilUsuarioComponent },
     { path: '', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'conlangs', component: ListaConlangComponent },

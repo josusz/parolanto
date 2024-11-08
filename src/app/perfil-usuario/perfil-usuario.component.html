@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+</head>
+<body style="background-image: url('/images/logo-background3-parolanto.svg');">
+  <app-navbar-interativo></app-navbar-interativo>
+  <section>
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-start">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3 overflow-hidden">
+            <div class="row g-0">
+              <div
+                class="col-md-4 text-center text-white bg-primary bg-gradient d-flex flex-column justify-content-center align-items-center">
+                <img [src]="usuario?.avatar || 'images/user-avatar-default.svg'" alt="Avatar"
+                  class="img-fluid my-3 rounded-circle border border-white border-2" style="width: 80px;" />
+                <h5>{{ usuario?.nome }}</h5>
+              </div>
+              <div class="col-md-8 d-flex flex-column">
+                <div class="card-body p-4 flex-grow-1">
+                  <h6>Informações</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Endereço de <i>e-mail</i></h6>
+                      <p class="text-muted">{{ usuario?.email }}</p>
+                    </div>
+                  </div>
+                  <h6>Projetos</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div *ngIf="projetos.length > 0; else semProjetos">
+                      <h6>Recentes</h6>
+                      <div class="col-12" *ngFor="let projeto of projetos">
+                        <p class="mb-0"><a [routerLink]="['/conlang_detail', projeto.id]"
+                            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{
+                            projeto.nome }}</a></p>
+                      </div>
+                    </div>
+                    <ng-template #semProjetos>
+                      <p class="text-muted">Você ainda não <i>criou</i> nenhum projeto.</p>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

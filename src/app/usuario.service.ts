@@ -51,6 +51,14 @@ export class UsuarioService {
     return this.http.get<any>(`${this.apiUrl}/perfilUsuarioAutenticado`, { headers });
   }
 
+  getUsuarioById(id: number): Observable<any> {
+    return this.http.get<any>(`$this.apiUrl/${id}`);
+  }
+
+  getProjetosByUsuarioId(id: number): Observable<any[]> {
+    return this.http.get<any>(`$this.apiUrl/${id}/projetos`);
+  }
+
   atualizarAvatar(avatar: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

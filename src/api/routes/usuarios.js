@@ -335,4 +335,31 @@ router.put('/atualizarAvatar', auth, async (req, res) => {
   }
 });
 
+//GET para obter dados do usuário por ID
+router.get('/usuarios/:id', async (req, res) => {
+  const usuarioId = req.params.id;
+  try {
+    const usuario = await query('SELECT * FROM TB_USUARIO WHERE USR_ID = ?', [usuarioId]);
+    if (usuario.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+    res.json(usuario[0]);
+  } catch (error) {
+    console.error('Erro ao buscar dados do usuário:', error);
+    res.status(500).json({ message: 'Erro no servidor.' });
+  }
+})
+
+//GET para obter projetos de um usuário específico
+router.get('/usuarios/:id/projetos', async (req, res) => {
+  const usuarioId = req.params.id;
+  try {
+    const projetos = await query('SELECT * FROM TB_PROJETO WHERE PRJ_USRID = ?', [usuarioId]);
+    res.json(projetos);
+  } catch (error) {
+    console.error('Erro ao buscar projetos do usuário:', error);
+    res.status(500).json({ message: 'Erro no servidor ao buscar projetos do usuário.' });
+  }
+});
+
 export default router;
