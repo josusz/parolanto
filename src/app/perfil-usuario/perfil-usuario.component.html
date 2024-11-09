@@ -61,8 +61,10 @@
       <div class="row d-flex justify-content-center align-items-start">
         <div class="col col-lg-6 mb-4 mb-lg-0">
           <div class="card">
-            <div class="card-body">
-              <p class="m-0"><i class="bi bi-info-circle-fill me-1"></i>{{errorMessages}}</p>
+            <div class="card-body text-muted">
+              <p><i class="bi bi-info-circle-fill me-1"></i>{{errorMessages}}</p>
+              <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" [routerLink]="'/feed'">
+                <i class="bi bi-arrow-up-left-circle me-1"></i>Clique aqui para ser redirecionado ao <i>feed</i>.</a>
             </div>
           </div>
         </div>
