@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'alterar-senha-confirmacao', component: AlterarSenhaUsuarioConfirmacaoComponent },
     { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
     { path: 'perfil-usuario-autenticado', component: PerfilUsuarioAutenticadoComponent, canActivate: [AuthGuard] },
-    { path: 'perfil-usuario/:id', component: PerfilUsuarioComponent },
+    { path: 'perfil-usuario/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'conlangs', component: ListaConlangComponent },
