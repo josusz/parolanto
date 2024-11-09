@@ -48,7 +48,7 @@
               {{ nomeUsuario }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#" [routerLink]="['/perfil-usuario-autenticado']"><i class="bi bi-person"></i> Perfil</a></li>
+              <li><a class="dropdown-item" href="#" [routerLink]="['/perfil-usuario-autenticado']" ><i class="bi bi-person"></i> Perfil</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#" (click)="logout()"><i class="bi bi-box-arrow-left"></i> Desconectar-se</a></li>
             </ul>
@@ -60,7 +60,7 @@
   <div class="offcanvas offcanvas-start z-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasScrollingLabel">...</h5>
+      <h5 class="offcanvas-title text-light" id="offcanvasScrollingLabel">...</h5>
     </div>
     <div class="offcanvas-body text-body-tertiary">
       <div class="list-group mt-2">

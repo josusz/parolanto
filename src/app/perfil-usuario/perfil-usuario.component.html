@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil</title>
 </head>
-
 <body style="background-image: url('/images/logo-background3-parolanto.svg');">
   <app-navbar-interativo></app-navbar-interativo>
-  <section>
+  <section *ngIf="usuarioEncontrado">
     <div class="container py-5">
       <div class="row d-flex justify-content-center align-items-start">
         <div class="col col-lg-6 mb-4 mb-lg-0">
@@ -38,13 +36,15 @@
                             <p class="card-text text-muted">
                               {{ projeto.descricao | slice:0:100 }}{{ projeto.descricao.length > 100 ? '...' : '' }}
                             </p>
-                            <a [routerLink]="['/conlang_detail', projeto.id]" class="btn btn-dark btn-sm">Conhecer<i class="bi bi-arrow-up-right-circle ms-1"></i></a>
+                            <a [routerLink]="['/conlang_detail', projeto.id]" class="btn btn-dark btn-sm">Conhecer<i
+                                class="bi bi-arrow-up-right-circle ms-1"></i></a>
                           </div>
                         </div>
                       </div>
                     </div>
                     <ng-template #semProjetos>
-                      <p class="text-muted"><i class="bi bi-info-circle-fill me-1"></i>Este usuário não <i>criou</i> nenhum projeto.</p>
+                      <p class="text-muted"><i class="bi bi-info-circle-fill me-1"></i>Este usuário não <i>criou</i>
+                        nenhum projeto.</p>
                     </ng-template>
                   </div>
                 </div>
@@ -55,6 +55,19 @@
       </div>
     </div>
   </section>
-</body>
 
+  <section *ngIf="!usuarioEncontrado">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-start">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card">
+            <div class="card-body">
+              <p class="m-0"><i class="bi bi-info-circle-fill me-1"></i>{{errorMessages}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
 </html>
