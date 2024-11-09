@@ -32,8 +32,10 @@
                 <h5>{{ usuario?.nome }}</h5>
                 <div class="btn-group mt-2">
                   <button class="btn btn-dark btn-sm mb-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#avatarOptions" aria-expanded="false" aria-controls="avatarOptions">
-                    <i class="bi bi-pencil-square me-1"></i>Avatar
+                    data-bs-target="#avatarOptions" aria-expanded="false" aria-controls="avatarOptions"
+                    (click)="inverteDirecao()">
+                    Avatar<i [ngClass]="iconeMenu ? 'bi bi-arrow-up-circle' : 'bi bi-arrow-down-circle'"
+                      class="ms-1"></i>
                   </button>
                 </div>
                 <div class="collapse" id="avatarOptions">
@@ -61,11 +63,17 @@
                   <hr class="mt-0 mb-4">
                   <div class="row pt-1">
                     <div *ngIf="projetos.length > 0; else semProjetos">
-                      <h6>Recentes</h6>
+                      <h6 class="mb-3">Recentes</h6>
                       <div class="col-12" *ngFor="let projeto of projetos">
-                        <p class="mb-0"><a [routerLink]="['/conlang_detail', projeto.id]"
-                            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{
-                            projeto.nome }}</a></p>
+                        <div class="card mb-2">
+                          <div class="card-body">
+                            <h6 class="card-title">{{ projeto.nome }}</h6>
+                            <p class="card-text text-muted">
+                              {{ projeto.descricao | slice:0:100 }}{{ projeto.descricao.length > 100 ? '...' : '' }}
+                            </p>
+                            <a [routerLink]="['/conlang_detail', projeto.id]" class="btn btn-dark btn-sm">Detalhar</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <ng-template #semProjetos>

@@ -24,14 +24,14 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   getUsuarioData(): void {
-    this.usuarioService.getUsuarioById(this.id).subscribe((data) => {
-      this.usuario = data;
-    })
-  }
-
-  getUsuarioProjetos(): void {
-    this.usuarioService.getProjetosByUsuarioId(this.id).subscribe((data) => {
-      this.projetos = data;
+    this.usuarioService.getUsuarioById(this.id).subscribe({
+      next: (data) => {
+        this.usuario = data;
+        this.projetos = data.projetos;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar dados do usuário:', err);
+      }
     });
   }
 }

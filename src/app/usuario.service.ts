@@ -52,11 +52,7 @@ export class UsuarioService {
   }
 
   getUsuarioById(id: number): Observable<any> {
-    return this.http.get<any>(`$this.apiUrl/${id}`);
-  }
-
-  getProjetosByUsuarioId(id: number): Observable<any[]> {
-    return this.http.get<any>(`$this.apiUrl/${id}/projetos`);
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
   atualizarAvatar(avatar: string): Observable<any> {

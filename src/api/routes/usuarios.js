@@ -227,7 +227,7 @@ router.get('/perfilUsuarioAutenticado', auth, async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
-    const projetos = await query('SELECT PRJ_ID, PRJ_NOME FROM TB_PROJETO WHERE PRJ_USRID = ? ORDER BY PRJ_ID DESC', [req.usuario.id]);
+    const projetos = await query('SELECT PRJ_ID, PRJ_NOME, PRJ_DESCRICAO FROM TB_PROJETO WHERE PRJ_USRID = ? ORDER BY PRJ_ID DESC', [req.usuario.id]);
 
     res.json({
       id: usuario[0].USR_ID,
@@ -236,7 +236,8 @@ router.get('/perfilUsuarioAutenticado', auth, async (req, res) => {
       avatar: usuario[0].USR_AVATAR,
       projetos: projetos.map(projeto => ({
         id: projeto.PRJ_ID,
-        nome: projeto.PRJ_NOME
+        nome: projeto.PRJ_NOME,
+        descricao: projeto.PRJ_DESCRICAO
       }))
     });
 
@@ -336,29 +337,30 @@ router.put('/atualizarAvatar', auth, async (req, res) => {
 });
 
 //GET para obter dados do usuário por ID
-router.get('/usuarios/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const usuarioId = req.params.id;
   try {
     const usuario = await query('SELECT * FROM TB_USUARIO WHERE USR_ID = ?', [usuarioId]);
     if (usuario.length === 0) {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
-    res.json(usuario[0]);
+
+    const projetos = await query('SELECT PRJ_ID, PRJ_NOME, PRJ_DESCRICAO FROM TB_PROJETO WHERE PRJ_USRID = ? ORDER BY PRJ_ID DESC', [usuarioId]);
+
+    res.json({
+      id: usuario[0].USR_ID,
+      nome: usuario[0].USR_NOME,
+      email: usuario[0].USR_EMAIL,
+      avatar: usuario[0].USR_AVATAR,
+      projetos: projetos.map(projeto => ({
+        id: projeto.PRJ_ID,
+        nome: projeto.PRJ_NOME,
+        descricao: projeto.PRJ_DESCRICAO
+      }))
+    });
   } catch (error) {
     console.error('Erro ao buscar dados do usuário:', error);
     res.status(500).json({ message: 'Erro no servidor.' });
-  }
-})
-
-//GET para obter projetos de um usuário específico
-router.get('/usuarios/:id/projetos', async (req, res) => {
-  const usuarioId = req.params.id;
-  try {
-    const projetos = await query('SELECT * FROM TB_PROJETO WHERE PRJ_USRID = ?', [usuarioId]);
-    res.json(projetos);
-  } catch (error) {
-    console.error('Erro ao buscar projetos do usuário:', error);
-    res.status(500).json({ message: 'Erro no servidor ao buscar projetos do usuário.' });
   }
 });
 

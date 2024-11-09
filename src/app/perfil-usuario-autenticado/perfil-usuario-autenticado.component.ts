@@ -24,6 +24,8 @@ export class PerfilUsuarioAutenticadoComponent implements OnInit {
   errorMessages: string[] = [];
   successMessages: string[] = [];
 
+  iconeMenu: boolean = false;
+
   @ViewChild(ModalAlteracaoSenhaComponent) modalAlteracaoSenhaComponent?: ModalAlteracaoSenhaComponent;
 
   constructor(private usuarioService: UsuarioService) { }
@@ -69,5 +71,9 @@ export class PerfilUsuarioAutenticadoComponent implements OnInit {
         this.successMessages = []; //limpa qualquer mensagem de sucesso anterior
       }
     });
+  }
+
+  inverteDirecao() {
+    this.iconeMenu = !this.iconeMenu;
   }
 }
