@@ -23,10 +23,10 @@
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="input-pesquisar">
-          <form class="d-flex" role="search">
+          <form class="d-flex" role="search" (ngSubmit)="pesquisar()">
             <div class="input-group">
               <span class="input-group-text bg-white"><i class="bi bi-search text-body-secondary"></i></span>
-              <input class="form-control" type="search" placeholder="Pesquisar..." aria-label="Search">
+              <input class="form-control" type="search" placeholder="Pesquisar..." aria-label="Search" [(ngModel)]="termoPesquisa" name="termoPesquisa">
             </div>
           </form>
         </div>

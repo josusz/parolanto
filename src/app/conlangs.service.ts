@@ -21,4 +21,8 @@ export class ConlangsService {
     return this.http.get<projeto_detail>(`${this.apiUrl}/${id}`);
   
   }
+
+  getConlangsTermoPesquisado(termo: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/pesquisar?termo=${termo}`);
+  }
 }

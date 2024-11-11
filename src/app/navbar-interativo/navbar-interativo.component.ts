@@ -14,6 +14,7 @@ export class NavbarInterativoComponent {
   nomeUsuario: string | null = '';
   avatarUsuario: string | null = '';
   iconeMenu: boolean = false;
+  termoPesquisa: string = '';
 
   constructor(private router: Router, private usuarioService: UsuarioService) { }
 
@@ -43,5 +44,11 @@ export class NavbarInterativoComponent {
 
     //redireciona para a página inicial
     this.router.navigate(['/pagina-inicial-parolanto']);
+  }
+
+  pesquisar(): void {
+    if (this.termoPesquisa.trim()) {
+      this.router.navigate(['/resultados'], { queryParams: { termo: this.termoPesquisa } })
+    }
   }
 }

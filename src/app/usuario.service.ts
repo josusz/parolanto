@@ -60,4 +60,8 @@ export class UsuarioService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<any>(`${this.apiUrl}/atualizarAvatar`, { avatar }, { headers });
   }
+
+  getUsuariosTermoPesquisado(termo: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/pesquisar?termo=${termo}`);
+  }
 }
