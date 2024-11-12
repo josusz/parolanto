@@ -336,6 +336,25 @@ router.put('/atualizarAvatar', auth, async (req, res) => {
   }
 });
 
+//GET para pesquisar usuários por nome (Campo "Pesquisar" do navbar-interativo)
+router.get('/pesquisar', async (req, res) => {
+  const termo = `%${req.query.termo}%`;
+  try {
+    const usuarios = await query(
+      'SELECT USR_ID, USR_NOME, USR_AVATAR FROM TB_USUARIO WHERE USR_NOME LIKE ?', [termo]
+    );
+
+    if (usuarios.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    res.json({ usuarios });
+  } catch (error) {
+    console.error('Erro ao realizar pesquisa de usuários:', error);
+    res.status(500).json({ message: 'Erro no servidor ao realizar a pesquisa de usuários.' });
+  }
+});
+
 //GET para obter dados do usuário por ID
 router.get('/:id', async (req, res) => {
   const usuarioId = req.params.id;

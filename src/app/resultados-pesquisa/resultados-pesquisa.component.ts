@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { UsuarioService } from '../usuario.service';
 import { ConlangsService } from '../conlangs.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-resultados-pesquisa',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './resultados-pesquisa.component.html',
   styleUrl: './resultados-pesquisa.component.css'
 })
