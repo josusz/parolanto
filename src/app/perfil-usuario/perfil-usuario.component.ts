@@ -3,12 +3,11 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { UsuarioService } from '../usuario.service';
 import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativo.component";
 import { CommonModule } from '@angular/common';
-import { ModalComponent } from "../modal/modal.component";
 
 @Component({
   selector: 'app-perfil-usuario',
   standalone: true,
-  imports: [NavbarInterativoComponent, CommonModule, RouterModule, ModalComponent],
+  imports: [NavbarInterativoComponent, CommonModule, RouterModule],
   templateUrl: './perfil-usuario.component.html',
   styleUrl: './perfil-usuario.component.css'
 })
