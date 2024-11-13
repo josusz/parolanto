@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { conlang } from './lista-geral';
 import { projeto_detail } from './projeto_detail';
+import { listaConlangsResponse } from './lista-conlangs-response';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ConlangsService {
   
   }
 
-  getConlangsTermoPesquisado(termo: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/pesquisar?termo=${termo}`);
+  getConlangsTermoPesquisado(termo: string): Observable<listaConlangsResponse> {
+    return this.http.get<listaConlangsResponse>(`${this.apiUrl}/pesquisar?termo=${termo}`);
   }
 }

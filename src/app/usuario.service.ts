@@ -6,6 +6,7 @@ import { loginUsuario } from './login-usuario';
 import { alteracaoSenhaLink } from './alteracao-senha-link';
 import { loginUsuarioResponse } from './login-usuario-response';
 import { alteracaoSenha } from './alteracao-senha';
+import { listaUsuariosResponse } from './lista-usuarios-response';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +62,7 @@ export class UsuarioService {
     return this.http.put<any>(`${this.apiUrl}/atualizarAvatar`, { avatar }, { headers });
   }
 
-  getUsuariosTermoPesquisado(termo: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/pesquisar?termo=${termo}`);
+  getUsuariosTermoPesquisado(termo: string): Observable<listaUsuariosResponse> {
+    return this.http.get<listaUsuariosResponse>(`${this.apiUrl}/pesquisar?termo=${termo}`);
   }
 }

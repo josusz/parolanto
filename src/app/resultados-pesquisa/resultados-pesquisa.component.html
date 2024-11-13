@@ -1,1 +1,7 @@
-<p>resultados-pesquisa works!</p>
+<app-navbar-interativo></app-navbar-interativo>
+<div *ngFor="let usuario of usuarios">
+  <p>{{ usuario.nomeUsuario }}</p>
+</div>
+<div *ngFor="let projeto of projetos">
+  <p>{{ projeto.nomeProjeto }}</p>
+</div>

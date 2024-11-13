@@ -348,7 +348,13 @@ router.get('/pesquisar', async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
-    res.json({ usuarios });
+    res.json({
+      usuarios: usuarios.map(usuario => ({
+        idUsuario: usuario.USR_ID,
+        nomeUsuario: usuario.USR_NOME,
+        avatarUsuario: usuario.USR_AVATAR
+      }))
+    });
   } catch (error) {
     console.error('Erro ao realizar pesquisa de usuários:', error);
     res.status(500).json({ message: 'Erro no servidor ao realizar a pesquisa de usuários.' });

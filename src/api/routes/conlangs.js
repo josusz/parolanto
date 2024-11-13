@@ -29,7 +29,14 @@ router.get('/pesquisar', async (req, res) => {
       return res.status(404).json({ message: 'Projeto não encontrado.' });
     }
 
-    res.json({ projetos });
+    res.json({
+      projetos: projetos.map(projeto => ({
+        idProjeto: projeto.PRJ_ID,
+        nomeProjeto: projeto.PRJ_NOME,
+        descricaoProjeto: projeto.PRJ_DESCRICAO,
+        idUsuarioProjeto: projeto.PRJ_USRID
+      }))
+    });
   } catch (error) {
     console.error('Erro ao realizar pesquisa de projetos:', error);
     res.status(500).json({ message: 'Erro no servidor ao realizar a pesquisa de projetos.' });
