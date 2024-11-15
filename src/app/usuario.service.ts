@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { registroUsuario } from './registro-usuario';
 import { loginUsuario } from './login-usuario';
 import { alteracaoSenhaLink } from './alteracao-senha-link';
@@ -64,5 +64,11 @@ export class UsuarioService {
 
   getUsuariosTermoPesquisado(termo: string): Observable<listaUsuariosResponse> {
     return this.http.get<listaUsuariosResponse>(`${this.apiUrl}/pesquisar?termo=${termo}`);
+  }
+
+  getQuantidadeProjetosUsuario(id: number): Observable<number> {
+    return this.http.get<{ totalProjetos: number }>(`${this.apiUrl}/${id}/contar-projetos`).pipe(
+      map((response: { totalProjetos: any; }) => response.totalProjetos)
+    );
   }
 }

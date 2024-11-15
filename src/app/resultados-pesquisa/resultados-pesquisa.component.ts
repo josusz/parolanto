@@ -24,10 +24,10 @@ export class ResultadosPesquisaComponent implements OnInit {
   constructor(private route: ActivatedRoute, private usuarioService: UsuarioService, private conlangsService: ConlangsService) { }
 
   ngOnInit(): void {
-      this.route.queryParams.subscribe(params => {
-        this.termoPesquisa = params['termo'];
-        this.buscarResultados();
-      });
+    this.route.queryParams.subscribe(params => {
+      this.termoPesquisa = params['termo'];
+      this.buscarResultados();
+    });
   }
 
   buscarResultados(): void {
@@ -40,6 +40,12 @@ export class ResultadosPesquisaComponent implements OnInit {
     this.usuarioService.getUsuariosTermoPesquisado(this.termoPesquisa).subscribe(response => {
       this.usuarios = response.usuarios;
       this.contagemUsuarios = this.usuarios.length;
+
+      this.usuarios.forEach(usuario => {
+        this.usuarioService.getQuantidadeProjetosUsuario(usuario.idUsuario).subscribe(totalProjetos => {
+          usuario.totalProjetos = totalProjetos; //adiciona a contagem na interface
+        });
+      });
     });
 
     //buscar projetos

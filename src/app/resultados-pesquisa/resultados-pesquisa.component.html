@@ -58,7 +58,12 @@
               </div>
               <div class="col d-flex justify-content-start align-items-center">
                 <div class="card-body text-start">
-                  <h6 class="card-title">{{ usuario.nomeUsuario }}</h6>
+                  <h6 class="card-title">
+                    {{ usuario.nomeUsuario }}
+                    <span class="badge rounded-pill text-bg-secondary">
+                      <i class="bi bi-archive me-1"></i>{{ usuario.totalProjetos || 0 }}
+                    </span>
+                  </h6>
                   <a [routerLink]="['/perfil-usuario', usuario.idUsuario]" class="btn btn-dark btn-sm">Detalhar<i
                       class="bi bi-arrow-up-right-circle ms-1"></i></a>
                 </div>

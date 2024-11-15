@@ -389,4 +389,25 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+//GET para obter a contagem de projetos de um usuário
+router.get('/:id/contar-projetos', async (req, res) => {
+  const usuarioId = req.params.id;
+
+  try {
+    const result = await query(
+      'SELECT COUNT(*) AS totalProjetos FROM TB_PROJETO WHERE PRJ_USRID = ?',
+      [usuarioId]
+    );
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado ou sem projetos.' });
+    }
+
+    res.json({ totalProjetos: result[0].totalProjetos });
+  } catch (error) {
+    console.error('Erro ao contar projetos:', error);
+    res.status(500).json({ message: 'Erro no servidor ao contar projetos.' });
+  }
+});
+
 export default router;
