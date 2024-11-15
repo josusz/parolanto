@@ -18,6 +18,8 @@ export class ResultadosPesquisaComponent implements OnInit {
   termoPesquisa: string = '';
   usuarios: listaUsuarios[] = [];
   projetos: listaConlangs[] = [];
+  contagemUsuarios: number = 0;
+  contagemProjetos: number = 0;
 
   constructor(private route: ActivatedRoute, private usuarioService: UsuarioService, private conlangsService: ConlangsService) { }
 
@@ -29,14 +31,21 @@ export class ResultadosPesquisaComponent implements OnInit {
   }
 
   buscarResultados(): void {
+    this.usuarios = [];
+    this.projetos = [];
+    this.contagemUsuarios = 0;
+    this.contagemProjetos = 0;
+
     //buscar usuários
     this.usuarioService.getUsuariosTermoPesquisado(this.termoPesquisa).subscribe(response => {
       this.usuarios = response.usuarios;
+      this.contagemUsuarios = this.usuarios.length;
     });
 
     //buscar projetos
     this.conlangsService.getConlangsTermoPesquisado(this.termoPesquisa).subscribe(response => {
       this.projetos = response.projetos;
+      this.contagemProjetos = this.projetos.length;
     });
   }
 }
