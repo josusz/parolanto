@@ -3,11 +3,11 @@
   <div class="card">
     <div class="card-body">
       <nav>
-        <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
+        <div class="nav nav-tabs mb-3 justify-content-end" id="nav-tab" role="tablist">
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Projetos</button>
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="bi bi-archive me-1"></i>Projetos</button>
           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
-            role="tab" aria-controls="nav-profile" aria-selected="false">Pessoas</button>
+            role="tab" aria-controls="nav-profile" aria-selected="false"><i class="bi bi-people me-1"></i>Pessoas</button>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
@@ -26,10 +26,18 @@
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
           <div *ngFor="let usuario of usuarios" class="card mb-2">
-            <div class="card-body">
-              <h6 class="card-title">{{ usuario.nomeUsuario }}</h6>
-              <a [routerLink]="['/perfil-usuario', usuario.idUsuario]" class="btn btn-dark btn-sm">Detalhar<i
-                  class="bi bi-arrow-up-right-circle ms-1"></i></a>
+            <div class="row g-0">
+              <div class="col-auto d-flex justify-content-start">
+                <img [src]="usuario?.avatarUsuario || 'images/user-avatar-default.svg'" alt="Avatar"
+                  class="img-fluid m-2 rounded-circle border border-white border-2" style="width: 80px;" />
+              </div>
+              <div class="col d-flex justify-content-start align-items-center">
+                <div class="card-body text-start">
+                  <h6 class="card-title">{{ usuario.nomeUsuario }}</h6>
+                  <a [routerLink]="['/perfil-usuario', usuario.idUsuario]" class="btn btn-dark btn-sm">Detalhar<i
+                      class="bi bi-arrow-up-right-circle ms-1"></i></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
