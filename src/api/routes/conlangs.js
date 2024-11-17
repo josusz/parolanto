@@ -43,6 +43,35 @@ router.get('/pesquisar', async (req, res) => {
   }
 });
 
+router.get('/feed', async (req, res) => {
+  const ordem = req.query.ordem || 'aleatorio'; //valor padrão é "aleatorio"
+  try {
+    let sql;
+
+    if (ordem === 'aleatorio') {
+      sql = 'SELECT PRJ_ID, PRJ_NOME, PRJ_DESCRICAO, PRJ_USRID FROM TB_PROJETO ORDER BY RAND()';
+    } else if (ordem === 'alfabetico') {
+      sql = 'SELECT PRJ_ID, PRJ_NOME, PRJ_DESCRICAO, PRJ_USRID FROM TB_PROJETO ORDER BY PRJ_NOME ASC';
+    } else {
+      return res.status(400).json({ message: 'Tipo de ordenação inválido.' });
+    }
+
+    const rows = await query(sql);
+
+    res.json({
+      projetos: rows.map(projeto => ({
+        idProjeto: projeto.PRJ_ID,
+        nomeProjeto: projeto.PRJ_NOME,
+        descricaoProjeto: projeto.PRJ_DESCRICAO,
+        idUsuarioProjeto: projeto.PRJ_USRID
+      }))
+    });
+  } catch (error) {
+    console.error('Erro ao carregar projetos no feed:', error);
+    res.status(500).json({ message: 'Erro no servidor ao carregar os projetos no feed.' });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
   try {

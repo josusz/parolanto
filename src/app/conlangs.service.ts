@@ -26,4 +26,8 @@ export class ConlangsService {
   getConlangsTermoPesquisado(termo: string): Observable<listaConlangsResponse> {
     return this.http.get<listaConlangsResponse>(`${this.apiUrl}/pesquisar?termo=${termo}`);
   }
+
+  getProjetosFeed(ordem: string = 'aleatorio'): Observable<listaConlangsResponse> {
+    return this.http.get<listaConlangsResponse>(`${this.apiUrl}/feed?ordem=${ordem}`);
+  }  
 }
