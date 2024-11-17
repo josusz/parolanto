@@ -6,19 +6,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import auth from '../middleware/auth.js';
 
-//teste de método GET
-router.get('/', (req, res) => {
-  const sql = 'SELECT * FROM TB_USUARIO';
-  query(sql, (err, results) => {
-    if (err) {
-      console.error('Erro ao executar a consulta:', err);
-      res.status(500).send('Erro no servidor');
-      return;
-    }
-    res.json(results);
-  });
-});
-
 //validações de usuário
 const validaUsuario = [
   check('nomeUsuario')
