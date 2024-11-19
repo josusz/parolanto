@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <h1 class="display-4">{{ word?.VOC_ROMANIZACAO }}</h1>
+    <h4 class="text-muted">Em: {{ word?.PRJ_DESCRICAO }}</h4>
+    
+    <div class="form-group">
+      <label for="description">Pronúncia</label>
+      <textarea id="description" class="form-control" rows="4" [value]="word?.VOC_TRANSCRICAO" readonly></textarea>
+    </div>
+  
+  <div class="container mt-4">
+    <h2>Definições de {{word?.VOC_ROMANIZACAO}}</h2>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Classe</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let def of defs">
+          <td>{{ def.DEF_CLASSE }}</td>
+          <td>{{ def.DEF_DESCRICAO }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="confirmRemoveDef(def)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-secondary" (click)="editDef(def)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="form-group">
+      <div class="form-group">
+        <h4>Add New Definition</h4>
+        <label for="spelling">Classe</label>
+        <input type="text" id="part_of_speech" class="form-control" [(ngModel)]="newDef.DEF_CLASSE" required>
+    
+        <label for="transcription">Descrição</label>
+        <input type="text" id="transcription" class="form-control" [(ngModel)]="newDef.DEF_DESCRICAO" required>
+        
+        <div *ngIf="editingMode; then  edit; else add"></div>
+        <ng-template #edit>
+          <button class="btn btn-primary mt-3" (click)="confirmEditDef()">Editar definição</button>
+        </ng-template>
+        <ng-template #add>
+          <button class="btn btn-primary mt-3" (click)="addDef()">Adicionar definição</button>
+        </ng-template>
+      </div>
+  </div>

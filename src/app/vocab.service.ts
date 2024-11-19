@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { vocabulo } from './vocab';
+import { vocab_detail } from './vocab_detail';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,9 @@ export class VocabService {
   editWord(word: vocabulo): Observable<vocabulo> {
     return this.http.put<vocabulo>(`${this.apiUrl}/${word.VOC_ID}`, word);
   }
+  detailWord(id:number): Observable<vocab_detail> {
+    return this.http.get<vocab_detail>(`${this.apiUrl}/${id}`);
+  
+  }
+
 }

@@ -11,6 +11,7 @@ import { AcessarProjetoComponent } from './acessar-projeto/acessar-projeto.compo
 import { PerfilUsuarioAutenticadoComponent } from './perfil-usuario-autenticado/perfil-usuario-autenticado.component';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { ResultadosPesquisaComponent } from './resultados-pesquisa/resultados-pesquisa.component';
+import { GerenciarDefinicoesComponent } from './gerenciar-definicoes/gerenciar-definicoes.component';
 
 export const routes: Routes = [
     { path: 'pagina-inicial-parolanto', component: PaginaInicialParolantoComponent },
@@ -25,5 +26,6 @@ export const routes: Routes = [
     { path: '', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'conlangs', component: ListaConlangComponent },
-    { path: "conlang_detail/:id", component: AcessarProjetoComponent }
+    { path: "conlang_detail/:id", component: AcessarProjetoComponent },
+    { path: "gerenciar_defs/:id", component: GerenciarDefinicoesComponent },
 ];

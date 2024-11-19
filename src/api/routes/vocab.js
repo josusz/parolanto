@@ -8,7 +8,7 @@ router.get('/:idprj', async (req, res) => {
         const sql = 'SELECT * FROM TB_VOCABULO WHERE VOC_PRJID = ?';
   
       const rows = await query(sql, [idprj]);
-      // projeto existe?
+      // vocábulo existe?
       if (rows.length === 0) {
         return res.status(404).json({ message: 'vocábulos não encontrados' });
       }
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
         return res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
     }
     catch (error) {
-        console.error('Erro ao inserir vocáublo:', error);
+        console.error('Erro ao inserir vocábulo:', error);
         res.status(500).json({ error: 'Ocorreu um erro ao inserir vocábulo ao projeto.' });
     }
 });
@@ -85,5 +85,37 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Um erro ocorreu durante a remoção.' });
     }
 });
+
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+      const sql = `
+          SELECT 
+            v.VOC_ID, 
+            p.PRJ_DESCRICAO, 
+            v.VOC_ROMANIZACAO,
+            v.VOC_TRANSCRICAO, 
+          FROM 
+            TB_VOCABULO v
+          INNER JOIN 
+            TB_PROJETO p ON v.VOC_PRJID = p.PRJ_ID
+          WHERE 
+            p.PRJ_ID = ?
+        `;
+  
+      const rows = await query(sql, [id]);
+      // vocábulo existe?
+      if (rows.length === 0) {
+        return res.status(404).json({ message: 'Vocábulo não encontrado' });
+      }
+  
+      // enviando resultado no json
+      res.json(rows[0]);
+  
+    } catch (error) {
+      console.error('Erro ao carregar vocábulo:', error);
+      res.status(500).json({ message: 'Um erro ocorreu ao detalhar vocábulo' });
+    }
+  });
 
 export default router;

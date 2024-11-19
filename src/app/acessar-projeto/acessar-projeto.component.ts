@@ -4,6 +4,7 @@ import { projeto_detail } from '../projeto_detail';
 import { ConlangsService } from '../conlangs.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { VocabService } from '../vocab.service';
 import { vocabulo } from '../vocab';
 import { DefinicaoService } from '../definicao.service';
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-acessar-projeto',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './acessar-projeto.component.html',
   styleUrl: './acessar-projeto.component.css'
 })

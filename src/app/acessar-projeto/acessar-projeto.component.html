@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let word of words">
+        <tr *ngFor="let word of words" [routerLink]="['/gerenciar_defs', word.VOC_ID]">
           <td>{{ word.VOC_ROMANIZACAO }}</td>
           <td>{{ word.VOC_TRANSCRICAO }}</td>
           <td>{{ word.contagem }}</td>
