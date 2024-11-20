@@ -25,10 +25,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let word of words" [routerLink]="['/gerenciar_defs', word.VOC_ID]">
+        <tr *ngFor="let word of words">
           <td>{{ word.VOC_ROMANIZACAO }}</td>
           <td>{{ word.VOC_TRANSCRICAO }}</td>
-          <td>{{ word.contagem }}</td>
+          <td><a [routerLink]="['/gerenciar_defs', word.VOC_ID]" class="text-primary text-decoration-underline">
+            {{ word.contagem }}
+          </a></td>
           <td>
             <button class="btn btn-danger" (click)="confirmRemoveWord(word)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-secondary" (click)="editWord(word)">Editar</button>

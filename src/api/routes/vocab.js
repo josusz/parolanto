@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { query } from '../config/db.config.js';
 const router = Router();
 
-router.get('/:idprj', async (req, res) => {
+router.get('/list:idprj', async (req, res) => {
     const idprj = req.params.idprj;
     try {
         const sql = 'SELECT * FROM TB_VOCABULO WHERE VOC_PRJID = ?';
@@ -10,7 +10,7 @@ router.get('/:idprj', async (req, res) => {
       const rows = await query(sql, [idprj]);
       // vocábulo existe?
       if (rows.length === 0) {
-        return res.status(404).json({ message: 'vocábulos não encontrados' });
+        return res.status(200).json([]);
       }
   
       // enviando resultado no json
@@ -86,7 +86,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/detail:id', async (req, res) => {
     const id = req.params.id;
     try {
       const sql = `
@@ -94,19 +94,19 @@ router.get('/:id', async (req, res) => {
             v.VOC_ID, 
             p.PRJ_DESCRICAO, 
             v.VOC_ROMANIZACAO,
-            v.VOC_TRANSCRICAO, 
+            v.VOC_TRANSCRICAO 
           FROM 
             TB_VOCABULO v
           INNER JOIN 
             TB_PROJETO p ON v.VOC_PRJID = p.PRJ_ID
           WHERE 
-            p.PRJ_ID = ?
+            v.VOC_ID = ?
         `;
   
       const rows = await query(sql, [id]);
       // vocábulo existe?
       if (rows.length === 0) {
-        return res.status(404).json({ message: 'Vocábulo não encontrado' });
+        return res.status(200).json([]);
       }
   
       // enviando resultado no json

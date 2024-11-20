@@ -13,7 +13,7 @@ export class VocabService {
   constructor(private http: HttpClient) { }
 
   getVocab(idprj: number): Observable<vocabulo[]> {
-    return this.http.get<vocabulo[]>(`${this.apiUrl}/${idprj}`);
+    return this.http.get<vocabulo[]>(`${this.apiUrl}/list${idprj}`);
   }
 
   addWord(word: vocabulo): Observable<vocabulo> {
@@ -27,8 +27,8 @@ export class VocabService {
   editWord(word: vocabulo): Observable<vocabulo> {
     return this.http.put<vocabulo>(`${this.apiUrl}/${word.VOC_ID}`, word);
   }
-  detailWord(id:number): Observable<vocab_detail> {
-    return this.http.get<vocab_detail>(`${this.apiUrl}/${id}`);
+  detailWord(id: number): Observable<vocab_detail> {
+    return this.http.get<vocab_detail>(`${this.apiUrl}/detail${id}`);
   
   }
 

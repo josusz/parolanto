@@ -1,8 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 import { query } from '../config/db.config.js';
+import { output } from '@angular/core';
 
-router.get('/count/:idvoc', async (req, res) => {
+router.get('/count:idvoc', async (req, res) => {
     const id = req.params.idvoc;
     try {
       const sql = `
@@ -22,7 +23,7 @@ router.get('/count/:idvoc', async (req, res) => {
     }
   });
 
-  router.get('/list/:idvoc', async (req, res) => {
+  router.get('/list:idvoc', async (req, res) => {
     const idprj = req.params.idvoc;
     try {
         const sql = 'SELECT * FROM TB_DEFINICAO WHERE DEF_VOCID = ?';
@@ -30,7 +31,7 @@ router.get('/count/:idvoc', async (req, res) => {
       const rows = await query(sql, [idprj]);
       // definição existe?
       if (rows.length === 0) {
-        return res.status(404).json({ message: 'definições não encontradas' });
+        return res.status(200).json([]);
       }
   
       // enviando resultado no json
