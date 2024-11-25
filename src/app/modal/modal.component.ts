@@ -16,6 +16,7 @@ export class ModalComponent {
 
   private modalElement: HTMLElement | null = null; //inicialização com null
   private bsModal?: Modal; //uso de undefined como padrão
+  private onCloseCallback: (() => void) | null = null; //armazena o callback
 
   constructor() { }
 
@@ -26,9 +27,20 @@ export class ModalComponent {
     }
   }
 
-  openModal() {
+  openModal(callback?: () => void): void {
+    this.onCloseCallback = callback || null; //salva o callback, se fornecido
     if (this.bsModal) {
       this.bsModal.show();
+    }
+  }
+
+  closeModal(): void {
+    if (this.bsModal) {
+      this.bsModal.hide();
+    }
+    if (this.onCloseCallback) {
+      this.onCloseCallback(); //executa o callback ao fechar o modal
+      this.onCloseCallback = null; //reseta o callback após execução
     }
   }
 }

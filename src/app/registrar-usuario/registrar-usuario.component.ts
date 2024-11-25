@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { UsuarioService } from '../usuario.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-registrar-usuario',
   standalone: true,
@@ -18,7 +18,7 @@ export class RegistrarUsuarioComponent {
 
   @ViewChild(ModalComponent) modalComponent?: ModalComponent;
 
-  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder) {
+  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder, private router: Router) {
     this.formGroupRegisterUser = this.formBuilder.group({
       nomeUsuario: [''],
       emailUsuario: [''],
@@ -54,6 +54,9 @@ export class RegistrarUsuarioComponent {
       this.modalComponent.title = title;
       this.modalComponent.messages = modalType === 'success' ? this.successMessages : this.errorMessages;
       this.modalComponent.openModal();
+
+      const callback = modalType === 'success' ? () => this.router.navigate(['/logar-usuario']) : undefined;
+      this.modalComponent.openModal(callback);
     }
   }
 }
