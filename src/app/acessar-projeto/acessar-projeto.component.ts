@@ -10,12 +10,13 @@ import { vocabulo } from '../vocab';
 import { DefinicaoService } from '../definicao.service';
 import { Observable } from 'rxjs';
 import { ComentariosComponent } from "../comentarios-projeto/comentarios-projeto.component";
+import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativo.component";
 
 
 @Component({
   selector: 'app-acessar-projeto',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent, NavbarInterativoComponent],
   templateUrl: './acessar-projeto.component.html',
   styleUrl: './acessar-projeto.component.css'
 })
