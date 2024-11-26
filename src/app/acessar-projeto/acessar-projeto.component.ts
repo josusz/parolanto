@@ -9,12 +9,13 @@ import { VocabService } from '../vocab.service';
 import { vocabulo } from '../vocab';
 import { DefinicaoService } from '../definicao.service';
 import { Observable } from 'rxjs';
+import { ComentariosComponent } from "../comentarios-projeto/comentarios-projeto.component";
 
 
 @Component({
   selector: 'app-acessar-projeto',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent],
   templateUrl: './acessar-projeto.component.html',
   styleUrl: './acessar-projeto.component.css'
 })

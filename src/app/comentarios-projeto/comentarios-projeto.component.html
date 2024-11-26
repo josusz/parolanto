@@ -1,1 +1,27 @@
-<p>comentarios-projeto works!</p>
+<div class="mt-3 mb-3">
+  <div *ngIf="comentarios.length === 0" class="alert alert-warning">
+    Ainda não há comentários. Seja o primeiro a comentar!<i class="bi bi-emoji-sunglasses-fill ms-1"></i>
+  </div>
+  <div *ngFor="let comentario of comentarios" class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex align-items-center mb-2">
+        <img [src]="comentario.avatarUsuario || 'images/user-avatar-default.svg'" class="rounded-circle"
+          style="width: 40px; height: 40px;">
+        <p class="ms-2 m-0">{{ comentario.nomeUsuario }}</p>
+      </div>
+      <p class="card-text">{{ comentario.conteudo }}</p>
+      <button *ngIf="comentario.idUsuario === idUsuarioAutenticado" class="btn btn-danger btn-sm" (click)="excluirComentario(comentario.idComentario)">Excluir</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="comentarioForm" (ngSubmit)="adicionarComentario()">
+        <div class="mb-3">
+          <textarea class="form-control" formControlName="conteudo" rows="3"
+            placeholder="Adicione seu comentário..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark" [disabled]="comentarioForm.invalid">Comentar</button>
+      </form>
+    </div>
+  </div>
+</div>

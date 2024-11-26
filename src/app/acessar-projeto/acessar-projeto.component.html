@@ -1,59 +1,62 @@
 <div class="container mt-4">
-    <h1 class="display-4">{{ projeto?.PRJ_NOME }}</h1>
-    <h4 class="text-muted">Por: {{ projeto?.USR_NOME }}</h4>
-    
-    <div class="form-group">
-      <label for="description">Descrição</label>
-      <textarea id="description" class="form-control" rows="4" [value]="projeto?.PRJ_DESCRICAO" readonly></textarea>
-    </div>
-    <div class="form-group">
-        <label for="description">Fonotática</label>
-        <textarea id="description" class="form-control" rows="4" [value]="projeto?.PRJ_FONOTATICA" readonly></textarea>
-      </div>
+  <h1 class="display-4">{{ projeto?.PRJ_NOME }}</h1>
+  <h4 class="text-muted">Por: {{ projeto?.USR_NOME }}</h4>
+
+  <div class="form-group">
+    <label for="description">Descrição</label>
+    <textarea id="description" class="form-control" rows="4" [value]="projeto?.PRJ_DESCRICAO" readonly></textarea>
   </div>
-  
-  <div class="container mt-4">
-    <h2>Words Associated with Project</h2>
-  
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Romanização</th>
-          <th>Transcrição</th>
-          <th>Definições</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let word of words">
-          <td>{{ word.VOC_ROMANIZACAO }}</td>
-          <td>{{ word.VOC_TRANSCRICAO }}</td>
-          <td><a [routerLink]="['/gerenciar_defs', word.VOC_ID]" class="text-primary text-decoration-underline">
+  <div class="form-group">
+    <label for="description">Fonotática</label>
+    <textarea id="description" class="form-control" rows="4" [value]="projeto?.PRJ_FONOTATICA" readonly></textarea>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <h2>Words Associated with Project</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Romanização</th>
+        <th>Transcrição</th>
+        <th>Definições</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let word of words">
+        <td>{{ word.VOC_ROMANIZACAO }}</td>
+        <td>{{ word.VOC_TRANSCRICAO }}</td>
+        <td><a [routerLink]="['/gerenciar_defs', word.VOC_ID]" class="text-primary text-decoration-underline">
             {{ word.contagem }}
           </a></td>
-          <td>
-            <button class="btn btn-danger" (click)="confirmRemoveWord(word)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-secondary" (click)="editWord(word)">Editar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
+        <td>
+          <button class="btn btn-danger"
+            (click)="confirmRemoveWord(word)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-secondary" (click)="editWord(word)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="form-group">
     <div class="form-group">
-      <div class="form-group">
-        <h4>Add New Word</h4>
-        <label for="spelling">Romanização</label>
-        <input type="text" id="spelling" class="form-control" [(ngModel)]="newWord.VOC_ROMANIZACAO" required>
-    
-        <label for="transcription">Transcrição</label>
-        <input type="text" id="transcription" class="form-control" [(ngModel)]="newWord.VOC_TRANSCRICAO" required>
-        
-        <div *ngIf="editingMode; then  edit; else add"></div>
-        <ng-template #edit>
-          <button class="btn btn-primary mt-3" (click)="confirmEditWord()">Editar vocábulo</button>
-        </ng-template>
-        <ng-template #add>
-          <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
-        </ng-template>
-      </div>
+      <h4>Add New Word</h4>
+      <label for="spelling">Romanização</label>
+      <input type="text" id="spelling" class="form-control" [(ngModel)]="newWord.VOC_ROMANIZACAO" required>
+
+      <label for="transcription">Transcrição</label>
+      <input type="text" id="transcription" class="form-control" [(ngModel)]="newWord.VOC_TRANSCRICAO" required>
+
+      <div *ngIf="editingMode; then  edit; else add"></div>
+      <ng-template #edit>
+        <button class="btn btn-primary mt-3" (click)="confirmEditWord()">Editar vocábulo</button>
+      </ng-template>
+      <ng-template #add>
+        <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
+      </ng-template>
+    </div>
   </div>
+  <app-comentarios-projeto [idProjeto]="id"></app-comentarios-projeto>
+</div>

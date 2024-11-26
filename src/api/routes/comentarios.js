@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { query } from '../config/db.config.js';
+import auth from '../middleware/auth.js';
 
 const router = Router();
 
-router.post('/comentarios', auth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { idProjeto, conteudo } = req.body;
   const idUsuario = req.usuario.id; //obtido do middleware auth.js
 
@@ -22,23 +23,19 @@ router.post('/comentarios', auth, async (req, res) => {
   }
 });
 
-router.get('/comentarios/:idProjeto', async (req, res) => {
+router.get('/:idProjeto', async (req, res) => {
   const idProjeto = req.params.idProjeto;
 
   try {
     const sql = `
       SELECT
-        COM_ID, COM_CONTEUDO, USR_NOME, USR_AVATAR
+        COM_ID, COM_CONTEUDO, USR_NOME, USR_AVATAR, COM_USRID, COM_PRJID
       FROM TB_COMENTARIO
         INNER JOIN TB_USUARIO ON (COM_USRID = USR_ID)
       WHERE COM_PRJID = ?
       ORDER BY COM_ID DESC
     `;
     const comentarios = await query(sql, [idProjeto]);
-
-    if (comentarios.length === 0) {
-      return res.status(404).json({ message: 'Nenhum comentário encontrado para este projeto.' });
-    }
 
     res.json({
       comentarios: comentarios.map(comentario => ({
@@ -56,7 +53,7 @@ router.get('/comentarios/:idProjeto', async (req, res) => {
   }
 });
 
-router.delete('/comentarios/:id', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   const idComentario = req.params.id;
   const idUsuario = req.usuario.id; //obtido do middleware auth.js
 

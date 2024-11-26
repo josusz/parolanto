@@ -4,6 +4,7 @@ import usersRouter from './routes/usuarios.js';
 import conlangsRouter from './routes/conlangs.js';
 import vocabRouter from './routes/vocab.js';
 import defRouter from './routes/definicoes.js';
+import comentariosRouter from './routes/comentarios.js'
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use('/usuarios', usersRouter);
 app.use('/conlangs', conlangsRouter);
 app.use('/vocab', vocabRouter);
 app.use('/definicoes', defRouter);
+app.use('/comentarios', comentariosRouter);
 
 app.get('/api', (req, res) => {
     res.status(200).json({
