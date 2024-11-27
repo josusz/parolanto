@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Comentario } from './comentario';
 
 @Injectable({
@@ -27,5 +27,11 @@ export class ComentariosService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.delete(`${this.apiUrl}/${idComentario}`, { headers });
+  }
+
+  contarComentarios(idProjeto: number): Observable<number> {
+    return this.http.get<{ totalComentarios: number }>(`${this.apiUrl}/${idProjeto}/contar`).pipe(
+      map(response => response.totalComentarios)
+    );
   }
 }

@@ -17,6 +17,7 @@ export class ComentariosComponent implements OnInit {
   comentarios: Comentario[] = [];
   comentarioForm: FormGroup;
   idUsuarioAutenticado: number | null = null;
+  totalComentarios: number = 0;
 
   constructor(private comentariosService: ComentariosService, private usuarioService: UsuarioService, private fb: FormBuilder) {
     this.comentarioForm = this.fb.group({
@@ -30,6 +31,7 @@ export class ComentariosComponent implements OnInit {
         this.idUsuarioAutenticado = usuario.id; //armazena o id do usuário autenticado
         if (this.idProjeto) {
           this.carregarComentarios();
+          this.carregarContagemComentarios();
         }
       },
       error: (error) => {
@@ -54,6 +56,7 @@ export class ComentariosComponent implements OnInit {
       const conteudo = this.comentarioForm.value.conteudo;
       this.comentariosService.adicionarComentario(this.idProjeto, conteudo).subscribe(response => {
         this.carregarComentarios();  //recarregar os comentários após adicionar
+        this.carregarContagemComentarios();
         this.comentarioForm.reset();  //resetar o campo de comentário
       }, error => {
         console.error('Erro ao adicionar comentário:', error);
@@ -62,10 +65,28 @@ export class ComentariosComponent implements OnInit {
   }
 
   excluirComentario(idComentario: number): void {
-    this.comentariosService.excluirComentario(idComentario).subscribe(response => {
-      this.carregarComentarios();  //recarregar os comentários após excluir
-    }, error => {
-      console.error('Erro ao excluir comentário:', error);
+    const comentario = this.comentarios.find(c => c.idComentario === idComentario);
+    const confirmRemove = confirm(
+      `Tem certeza de que deseja remover este comentário: "${comentario?.conteudo || 'Comentário não encontrado'}"?`
+    );
+    if (confirmRemove) {
+      this.comentariosService.excluirComentario(idComentario).subscribe(response => {
+        this.carregarComentarios();  //recarregar os comentários após excluir
+        this.carregarContagemComentarios();
+      }, error => {
+        console.error('Erro ao excluir comentário:', error);
+      });
+    }
+  }
+
+  carregarContagemComentarios(): void {
+    this.comentariosService.contarComentarios(this.idProjeto).subscribe({
+      next: (total) => {
+        this.totalComentarios = total;
+      },
+      error: (err) => {
+        console.error('Erro ao contar comentários:', err);
+      }
     });
   }
 }

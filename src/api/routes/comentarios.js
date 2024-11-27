@@ -81,4 +81,18 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+router.get('/:idProjeto/contar', async (req, res) => {
+  const idProjeto = req.params.idProjeto;
+
+  try {
+    const sql = `SELECT COUNT(*) AS totalComentarios FROM TB_COMENTARIO WHERE COM_PRJID = ?`;
+    const [result] = await query(sql, [idProjeto]);
+
+    res.json({ totalComentarios: result.totalComentarios });
+  } catch (error) {
+    console.error('Erro ao contar comentários:', error);
+    res.status(500).json({ message: 'Erro no servidor ao contar comentários.' });
+  }
+});
+
 export default router;
