@@ -4,11 +4,12 @@ import { Comentario } from '../comentario';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../usuario.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-comentarios-projeto',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './comentarios-projeto.component.html',
   styleUrls: ['./comentarios-projeto.component.css']
 })
