@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { listaUsuarios } from '../lista-usuarios';
 import { listaConlangs } from '../lista-conlangs';
 import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativo.component";
+import { ComentariosService } from '../comentarios.service';
 
 @Component({
   selector: 'app-resultados-pesquisa',
@@ -21,7 +22,7 @@ export class ResultadosPesquisaComponent implements OnInit {
   contagemUsuarios: number = 0;
   contagemProjetos: number = 0;
 
-  constructor(private route: ActivatedRoute, private usuarioService: UsuarioService, private conlangsService: ConlangsService) { }
+  constructor(private route: ActivatedRoute, private usuarioService: UsuarioService, private conlangsService: ConlangsService, private comentariosService: ComentariosService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -52,6 +53,22 @@ export class ResultadosPesquisaComponent implements OnInit {
     this.conlangsService.getConlangsTermoPesquisado(this.termoPesquisa).subscribe(response => {
       this.projetos = response.projetos;
       this.contagemProjetos = this.projetos.length;
+
+      //contagem de comentários para cada projeto
+      this.projetos.forEach(projeto => {
+        this.carregarTotalComentarios(projeto);
+      });
+    });
+  }
+
+  carregarTotalComentarios(projeto: listaConlangs): void {
+    this.comentariosService.contarComentarios(projeto.idProjeto).subscribe({
+      next: (total) => {
+        projeto.totalComentarios = total; //atualiza o total de comentários para o projeto
+      },
+      error: (err) => {
+        console.error(`Erro ao contar comentários do projeto ${projeto.idProjeto}:`, err);
+      }
     });
   }
 }
