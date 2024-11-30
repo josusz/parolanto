@@ -18,8 +18,11 @@
   <div *ngFor="let projeto of projetos" class="card mb-2">
     <div class="card-body">
       <h6 class="card-title">{{ projeto.nomeProjeto }}</h6>
-      <p class="card-text text-muted">
+      <p class="card-text text-muted mb-1">
         {{ projeto.descricaoProjeto | slice:0:100 }}{{ projeto.descricaoProjeto.length > 100 ? '...' : '' }}
+      </p>
+      <p class="card-text text-muted">
+        <i class="bi bi-chat-dots me-1"></i> {{ projeto.totalComentarios }}
       </p>
       <a [routerLink]="['/conlang_detail', projeto.idProjeto]" class="btn btn-dark btn-sm">Conhecer<i
           class="bi bi-arrow-up-right-circle ms-1"></i></a>

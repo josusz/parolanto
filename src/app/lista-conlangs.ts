@@ -3,4 +3,5 @@ export interface listaConlangs {
   nomeProjeto: string;
   descricaoProjeto: string;
   idUsuarioProjeto: number;
+  totalComentarios: number;
 }
