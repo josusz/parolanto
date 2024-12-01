@@ -5,4 +5,5 @@ export interface Comentario {
   avatarUsuario?: string;
   idUsuario: number;
   idProjeto: number;
+  nomeProjeto?: string;
 }

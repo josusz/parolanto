@@ -95,4 +95,38 @@ router.get('/:idProjeto/contar', async (req, res) => {
   }
 });
 
+router.get('/projetos-usuario-autenticado/comentarios', auth, async (req, res) => {
+  const idUsuario = req.usuario.id;
+
+  try {
+    const sql = `
+      SELECT
+        COM_ID, COM_CONTEUDO, USR_NOME, USR_AVATAR, PRJ_NOME, COM_PRJID
+      FROM TB_COMENTARIO
+        INNER JOIN TB_PROJETO ON COM_PRJID = PRJ_ID
+        INNER JOIN TB_USUARIO ON COM_USRID = USR_ID
+      WHERE
+        PRJ_USRID = ?
+      ORDER BY
+        COM_ID DESC;
+    `;
+
+    const comentarios = await query(sql, [idUsuario]);
+
+    res.json({
+      comentarios: comentarios.map(comentario => ({
+        idComentario: comentario.COM_ID,
+        conteudo: comentario.COM_CONTEUDO,
+        nomeUsuario: comentario.USR_NOME,
+        avatarUsuario: comentario.USR_AVATAR,
+        nomeProjeto: comentario.PRJ_NOME,
+        idProjeto: comentario.COM_PRJID,
+      }))
+    });
+  } catch (error) {
+    console.error('Erro ao listar comentários nos projetos do usuário:', error);
+    res.status(500).json({ message: 'Erro no servidor ao listar comentários.' });
+  }
+});
+
 export default router;

@@ -34,4 +34,11 @@ export class ComentariosService {
       map(response => response.totalComentarios)
     );
   }
+
+  listarComentariosUsuarioAutenticado(): Observable<{ comentarios: Comentario[] }> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<{ comentarios: Comentario[] }>(`${this.apiUrl}/projetos-usuario-autenticado/comentarios`, { headers });
+  }  
 }

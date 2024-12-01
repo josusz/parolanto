@@ -3,6 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { UsuarioService } from '../usuario.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ComentariosService } from '../comentarios.service';
+import { Comentario } from '../comentario';
 
 @Component({
   selector: 'app-navbar-interativo',
@@ -16,8 +18,9 @@ export class NavbarInterativoComponent {
   avatarUsuario: string | null = '';
   iconeMenu: boolean = false;
   termoPesquisa: string = '';
+  comentarios: Comentario[] = [];
 
-  constructor(private router: Router, private usuarioService: UsuarioService) { }
+  constructor(private router: Router, private usuarioService: UsuarioService, private comentariosService: ComentariosService) { }
 
   ngOnInit() {
     this.nomeUsuario = this.usuarioService.getNomeUsuario();
@@ -32,6 +35,8 @@ export class NavbarInterativoComponent {
         console.error('Erro ao carregar o usuário autenticado', error);
       }
     });
+
+    this.carregarComentarios();
   }
 
   inverteDirecao() {
@@ -51,5 +56,16 @@ export class NavbarInterativoComponent {
     if (this.termoPesquisa.trim()) {
       this.router.navigate(['/resultados'], { queryParams: { termo: this.termoPesquisa } })
     }
+  }
+
+  carregarComentarios(): void {
+    this.comentariosService.listarComentariosUsuarioAutenticado().subscribe({
+      next: (response) => {
+        this.comentarios = response.comentarios;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar comentários:', error);
+      },
+    });
   }
 }

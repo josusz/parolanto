@@ -18,15 +18,16 @@
         <span class="bi bi-three-dots fs-3"></span>
       </button>
       <div class="icone-menu" (click)="inverteDirecao()">
-        <i [ngClass]="iconeMenu ? 'bi bi-arrow-left-circle-fill' : 'bi bi-arrow-right-circle-fill'" class="text-primary" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></i>
+        <i [ngClass]="iconeMenu ? 'bi bi-arrow-left-circle-fill' : 'bi bi-arrow-right-circle-fill'" class="text-primary"
+          data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></i>
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="input-pesquisar">
           <form class="d-flex" role="search" (ngSubmit)="pesquisar()">
             <div class="input-group">
               <button class="input-group-text bg-white"><i class="bi bi-search text-body-secondary"></i></button>
-              <input class="form-control" type="search" placeholder="Pesquisar..." aria-label="Search" [(ngModel)]="termoPesquisa" name="termoPesquisa">
+              <input class="form-control" type="search" placeholder="Pesquisar..." aria-label="Search"
+                [(ngModel)]="termoPesquisa" name="termoPesquisa">
             </div>
           </form>
         </div>
@@ -37,7 +38,26 @@
               <span class="notificacoes-text ms-2">Avisos</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item">Pendente...</a></li>
+              <li>
+                <a class="dropdown-item">
+                  <div *ngIf="comentarios.length === 0">
+                    Ainda não há nenhum comentário em seus <i>projetos</i>.
+                  </div>
+                </a>
+              </li>
+              <div *ngFor="let comentario of comentarios">
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/conlang_detail', comentario.idProjeto]">
+                    <div class="d-flex align-items-center">
+                      <img [src]="comentario.avatarUsuario || 'images/user-avatar-default.svg'"
+                        class="rounded-circle me-2" style="width: 40px; height: 40px;" />
+                      <p class="mb-0">
+                        {{ comentario.nomeUsuario }} comentou no seu <i>projeto</i> {{ comentario.nomeProjeto }}.
+                      </p>
+                    </div>
+                  </a>
+                </li>
+              </div>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -48,9 +68,13 @@
               {{ nomeUsuario }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#" [routerLink]="['/perfil-usuario-autenticado']" ><i class="bi bi-person"></i> Perfil</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#" (click)="logout()"><i class="bi bi-box-arrow-left"></i> Desconectar-se</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/perfil-usuario-autenticado']"><i class="bi bi-person"></i>
+                  Perfil</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#" (click)="logout()"><i class="bi bi-box-arrow-left"></i>
+                  Desconectar-se</a></li>
             </ul>
           </li>
         </ul>
