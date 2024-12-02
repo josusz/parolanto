@@ -106,12 +106,13 @@ router.get('/projetos-usuario-autenticado/comentarios', auth, async (req, res) =
         INNER JOIN TB_PROJETO ON COM_PRJID = PRJ_ID
         INNER JOIN TB_USUARIO ON COM_USRID = USR_ID
       WHERE
-        PRJ_USRID = ?
+        PRJ_USRID = ? AND
+        COM_USRID != ?
       ORDER BY
         COM_ID DESC;
     `;
 
-    const comentarios = await query(sql, [idUsuario]);
+    const comentarios = await query(sql, [idUsuario, idUsuario]);
 
     res.json({
       comentarios: comentarios.map(comentario => ({
