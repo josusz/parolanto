@@ -16,6 +16,21 @@ router.get('/conlangs', async (req, res) => {
   }
 });
 
+router.get('/usersconlangs:nome', async (req, res) => {
+  try {
+    const usuario = req.params.nome;
+    const sql = 'SELECT p.* FROM TB_PROJETO p inner join TB_USUARIO u on p.prj_usrid = u.usr_id where u.usr_nome = ?';
+    // Usa a função query que você exportou
+    const rows = await query(sql, [usuario]);
+
+    // Envia os resultados como resposta
+    res.json(rows);
+  } catch (error) {
+    console.error('Erro ao executar a query:', error);
+    res.status(500).json({ error: 'Erro ao buscar os dados do banco de dados' });
+  }
+});
+
 //GET para pesquisar projetos por nome (Campo "Pesquisar" do navbar-interativo)
 router.get('/pesquisar', async (req, res) => {
   const termo = `%${req.query.termo}%`;

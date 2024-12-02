@@ -45,7 +45,7 @@ export class UsuarioService {
   getAvatarUsuario(): string | null {
     return localStorage.getItem('avatarUsuario');
   }
-
+  
   getUsuarioAutenticado(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

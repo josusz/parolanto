@@ -1,12 +1,20 @@
+<app-navbar-interativo></app-navbar-interativo>
+<h1 class="display-4 text-center text-primary mt-4">Meus projetos</h1>
 <div class="row">
-  <div *ngFor="let item of items" class="col-md-4">
-    <div class="card mb-4 shadow-sm" [routerLink]="['/conlang_detail', item.PRJ_ID]" style="cursor: pointer;">
-      <div class="card-header">
-        <h5 class="card-title">{{ item.PRJ_NOME }}</h5>
-      </div>
-      <div class="card-body">
-        <p class="card-text">{{ item.PRJ_DESCRICAO }}</p>
+  <div *ngIf="items && items.length > 0; else noProjects">
+    <div *ngFor="let item of items" class="col-md-4">
+      <div class="card mb-4 shadow-sm" [routerLink]="['/conlang_detail', item.PRJ_ID]" style="cursor: pointer;">
+        <div class="card-header">
+          <h5 class="card-title">{{ item.PRJ_NOME }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ item.PRJ_DESCRICAO }}</p>
+        </div>
       </div>
     </div>
   </div>
+  
+  <ng-template #noProjects>
+    <p class="text-muted text-center">Você ainda não possui projetos. <a [routerLink]="" class="text-decoration-none link-primary">Clique aqui para criar.</a></p>
+  </ng-template>
 </div>

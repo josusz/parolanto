@@ -16,8 +16,11 @@ export class ConlangsService {
 
   getConlangs(): Observable<conlang[]> {
     return this.http.get<conlang[]>(`${this.apiUrl}/conlangs`);
-  
   }
+  getConlangsFromUser(nome: string): Observable<conlang[]> {
+    return this.http.get<conlang[]>(`${this.apiUrl}/usersconlangs${nome}`);
+  }
+
   detailConlang(id:number): Observable<projeto_detail> {
     return this.http.get<projeto_detail>(`${this.apiUrl}/${id}`);
   
