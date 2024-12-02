@@ -18,7 +18,8 @@ export class PerfilUsuarioAutenticadoComponent implements OnInit {
     'images/user-avatar-default.svg',
     'images/user-avatar1.svg',
     'images/user-avatar2.svg',
-    'images/user-avatar3.svg'
+    'images/user-avatar3.svg',
+    'images/user-avatar4.svg'
   ]
 
   errorMessages: string[] = [];

@@ -34,26 +34,28 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-bell text-body-secondary"></i>
-              <span class="notificacoes-text ms-2">Avisos</span>
+              <i class="bi bi-chat-dots text-body-secondary"></i>
+              <span class="notificacoes-text ms-2">Interações</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item">
-                  <div *ngIf="comentarios.length === 0">
-                    Ainda não há nenhum comentário em seus <i>projeto(s)</i>.
-                  </div>
-                </a>
-              </li>
+              <div *ngIf="comentarios.length === 0">
+                <li>
+                  <a class="dropdown-item text-truncate">
+                    <span>
+                      Ainda não há nenhum comentário em seus <i>projeto(s)</i>.
+                    </span>
+                  </a>
+                </li>
+              </div>
               <div *ngFor="let comentario of comentarios">
                 <li>
                   <a class="dropdown-item" [routerLink]="['/conlang_detail', comentario.idProjeto]">
                     <div class="d-flex align-items-center">
                       <img [src]="comentario.avatarUsuario || 'images/user-avatar-default.svg'"
                         class="rounded-circle me-2" style="width: 40px; height: 40px;" />
-                      <p class="mb-0">
+                      <span class="text-truncate">
                         {{ comentario.nomeUsuario }} comentou no seu <i>projeto</i> {{ comentario.nomeProjeto }}.
-                      </p>
+                      </span>
                     </div>
                   </a>
                 </li>
