@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import { query } from '../config/db.config.js';
+import auth from '../middleware/auth.js';
 
 router.get('/conlangs', async (req, res) => {
   try {
@@ -16,10 +17,10 @@ router.get('/conlangs', async (req, res) => {
   }
 });
 
-router.get('/usersconlangs:nome', async (req, res) => {
+router.get('/usersconlangs', auth, async (req, res) => {
   try {
-    const usuario = req.params.nome;
-    const sql = 'SELECT p.* FROM TB_PROJETO p inner join TB_USUARIO u on p.prj_usrid = u.usr_id where u.usr_nome = ?';
+    const usuario = req.usuario.id;
+    const sql = 'SELECT p.* FROM TB_PROJETO p where p.prj_usrid  = ?';
     // Usa a função query que você exportou
     const rows = await query(sql, [usuario]);
 

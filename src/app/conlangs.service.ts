@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { conlang } from './lista-geral';
@@ -17,8 +17,10 @@ export class ConlangsService {
   getConlangs(): Observable<conlang[]> {
     return this.http.get<conlang[]>(`${this.apiUrl}/conlangs`);
   }
-  getConlangsFromUser(nome: string): Observable<conlang[]> {
-    return this.http.get<conlang[]>(`${this.apiUrl}/usersconlangs${nome}`);
+  getConlangsFromUser(): Observable<conlang[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<conlang[]>(`${this.apiUrl}/usersconlangs`, { headers });
   }
 
   detailConlang(id:number): Observable<projeto_detail> {

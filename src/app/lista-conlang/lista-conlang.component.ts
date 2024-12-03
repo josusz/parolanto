@@ -16,18 +16,20 @@ import { NavbarInterativoComponent } from '../navbar-interativo/navbar-interativ
 export class ListaConlangComponent implements OnInit {
 
   items: conlang[] = [];
-  usuario: string|null = '';
+  //usuario: string|null = '';
   projetos: any[] = [];
   constructor(private serviceConlangs: ConlangsService, private serviceUsers: UsuarioService) { }
 
   ngOnInit(): void {
 
-    this.usuario = this.serviceUsers.getNomeUsuario();
+    /*this.usuario = this.serviceUsers.getNomeUsuario();
     if(this.usuario != null)
       this.serviceConlangs.getConlangsFromUser(this.usuario).subscribe((resposta: conlang[]) => {
         this.items = resposta;
+      });*/
+      this.serviceConlangs.getConlangsFromUser().subscribe((resposta: conlang[]) => {
+        this.items = resposta;
       });
-
   }
 
 }
