@@ -397,23 +397,4 @@ router.get('/:id/contar-projetos', async (req, res) => {
   }
 });
 
-router.get('/:nome', async(req, res) => {
-  const nome = req.params.nome;
-  try {
-    const result = await query(
-      'SELECT USR_ID from TB_USUARIO where USR_NOME = ?',
-      [nome]
-    );
-
-    if (result.length === 0) {
-      return res.status(404).json({ message: 'ID do usuário não encontrado.' });
-    }
-
-    res.json({ totalProjetos: result[0].totalProjetos });
-  } catch (error) {
-    console.error('Erro ao contar projetos:', error);
-    res.status(500).json({ message: 'Erro no servidor ao procurar id.' });
-  }
-});
-
 export default router;

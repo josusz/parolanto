@@ -1,25 +1,5 @@
 <app-navbar-interativo></app-navbar-interativo>
 <h1 class="display-4 text-center text-primary mt-4">Meus projetos</h1>
-<div class="form-group">
-  <div class="form-group">
-    <h4>Criar projeto</h4>
-    <label for="spelling">Nome</label>
-    <input type="text" id="name" class="form-control" [(ngModel)]="newProject.PRJ_NOME" required>
-
-    <label for="transcription">Descrição</label>
-    <input type="text" id="description" class="form-control" [(ngModel)]="newProject.PRJ_DESCRICAO" required>
-
-    <label for="transcription">Fonotática</label>
-    <input type="text" id="phonotactics" class="form-control" [(ngModel)]="newProject.PRJ_FONOTATICA" required>
-    <div *ngIf="editingMode; then  edit; else add"></div>
-    <ng-template #edit>
-      <!--<button class="btn btn-primary mt-3" (click)="confirmEditproject()">Editar prjeto</button>-->
-    </ng-template>
-    <ng-template #add>
-      <button class="btn btn-primary mt-3" (click)="addProject()">Adicionar projeto</button>
-    </ng-template>
-  </div>
-</div>
 <div class="row">
   <div *ngIf="items && items.length > 0; else noProjects">
     <div *ngFor="let item of items" class="col-md-4">
@@ -35,6 +15,6 @@
   </div>
   
   <ng-template #noProjects>
-    <p class="text-muted text-center">Você ainda não possui projetos!</p>
+    <p class="text-muted text-center">Você ainda não possui projetos. <a [routerLink]="" class="text-decoration-none link-primary">Clique aqui para criar.</a></p>
   </ng-template>
 </div>
