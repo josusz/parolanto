@@ -42,6 +42,10 @@ export class UsuarioService {
     return localStorage.getItem('nomeUsuario');
   }
 
+  getIdUsuarioByName(nome : string): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/${nome}`);
+  }
+
   getAvatarUsuario(): string | null {
     return localStorage.getItem('avatarUsuario');
   }
