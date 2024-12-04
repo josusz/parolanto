@@ -17,6 +17,7 @@ import { DefinicaoService } from '../definicao.service';
 export class GerenciarDefinicoesComponent implements OnInit {
   word!: vocab_detail 
   id!: number;
+  index: number | null = null;
   defs: definicao[] = [];
   newDef!: definicao;
   editingMode: boolean = false;
@@ -25,13 +26,7 @@ export class GerenciarDefinicoesComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.newDef = {
-      DEF_ID : undefined,
-      DEF_CLASSE : "",
-      DEF_DESCRICAO : "",
-      DEF_VOCID : this.id
-    };
-
+    this.resetObj();
     this.serviceVocab.detailWord(this.id).subscribe((resposta: vocab_detail) => {
       this.word = resposta;
     });
@@ -52,7 +47,7 @@ export class GerenciarDefinicoesComponent implements OnInit {
       const defToAdd = { ...this.newDef};
       this.serviceDef.addDef(defToAdd).subscribe(() => {
         this.getDefs(); // Refresh the list after adding
-        this.newDef = {DEF_ID: undefined, DEF_VOCID: this.id, DEF_CLASSE: '', DEF_DESCRICAO: '' }; // Reset the form
+        this.resetObj(); // Reset the form
       });
 
     } else {
@@ -60,7 +55,8 @@ export class GerenciarDefinicoesComponent implements OnInit {
     }
   }
 
-  editDef(def: definicao): void {
+  editDef(def: definicao, index: number): void {
+    this.index = index + 1;
     this.newDef = def;
     this.editingMode = true;
   }
@@ -68,9 +64,24 @@ export class GerenciarDefinicoesComponent implements OnInit {
   confirmEditDef(): void{
     this.serviceDef.editDef(this.newDef).subscribe((updatedDef) => {
     this.getDefs(); // Refresh the list after editing
-    this.newDef = {DEF_ID: undefined, DEF_VOCID: this.id, DEF_CLASSE: '', DEF_DESCRICAO: '' }; // Reset the form
+    this.resetObj(); // Reset the form
     this.editingMode = false;
     });
+  }
+
+  exitEditMode(): void{
+    this.editingMode = false;
+    this.resetObj();
+  }
+
+  resetObj()
+  {
+    this.newDef = {
+      DEF_ID : undefined,
+      DEF_CLASSE : "",
+      DEF_DESCRICAO : "",
+      DEF_VOCID : this.id
+    };
   }
 
   confirmRemoveDef(def: definicao): void {
@@ -80,6 +91,8 @@ export class GerenciarDefinicoesComponent implements OnInit {
       {
         this.serviceDef.removeDef(def.DEF_ID).subscribe(() => {
           this.getDefs(); // Refresh the list after removing
+          if(def.DEF_ID === this.newDef.DEF_ID)
+            this.exitEditMode();
         });
       }
     }

@@ -32,6 +32,15 @@ export class AcessarProjetoComponent implements OnInit {
   ngOnInit(): void {
     
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.resetObj();
+    this.serviceConlangs.detailConlang(this.id).subscribe((resposta: projeto_detail) => {
+      this.projeto = resposta;
+    });
+
+    this.getWords();
+  }
+  resetObj()
+  {
     this.newWord = {
       VOC_ID: undefined,
       VOC_PRJID: this.id,
@@ -39,13 +48,12 @@ export class AcessarProjetoComponent implements OnInit {
       VOC_TRANSCRICAO: '',
       contagem: 0
   };
-    this.serviceConlangs.detailConlang(this.id).subscribe((resposta: projeto_detail) => {
-      this.projeto = resposta;
-    });
-
-    this.getWords();
   }
-
+  exitEditMode()
+  {
+    this.editingMode = false;
+    this.resetObj();
+  }
   getWords(): void {
     // Call your API to get words associated with the project
     this.serviceVocab.getVocab(this.id).subscribe((data: vocabulo[]) => {
@@ -77,7 +85,7 @@ export class AcessarProjetoComponent implements OnInit {
       const wordToAdd = { ...this.newWord};
       this.serviceVocab.addWord(wordToAdd).subscribe(() => {
         this.getWords(); // Refresh the list after adding
-        this.newWord = {VOC_ID: undefined, VOC_PRJID: this.id, VOC_ROMANIZACAO: '', VOC_TRANSCRICAO: '', contagem: 0 }; // Reset the form
+        this.resetObj(); // Reset the form
       });
 
     } else {
@@ -105,6 +113,8 @@ export class AcessarProjetoComponent implements OnInit {
       {
         this.serviceVocab.removeWord(word.VOC_ID).subscribe(() => {
           this.getWords(); // Refresh the list after removing
+          if(word.VOC_ID === this.newWord.VOC_ID)
+            this.exitEditMode();
         });
       }
     }

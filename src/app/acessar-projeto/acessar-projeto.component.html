@@ -43,7 +43,13 @@
 
   <div class="form-group">
     <div class="form-group">
-      <h4>Add New Word</h4>
+      <div *ngIf="editingMode; then  editHeader; else addHeader"></div>
+      <ng-template #editHeader>
+        <h4>Editando '{{newWord.VOC_ROMANIZACAO}}'</h4>
+      </ng-template>
+      <ng-template #addHeader>
+        <h4>Adicionar nova palavra</h4>
+      </ng-template>
       <label for="spelling">Romanização</label>
       <input type="text" id="spelling" class="form-control" [(ngModel)]="newWord.VOC_ROMANIZACAO" required>
 
@@ -53,6 +59,8 @@
       <div *ngIf="editingMode; then  edit; else add"></div>
       <ng-template #edit>
         <button class="btn btn-primary mt-3" (click)="confirmEditWord()">Editar vocábulo</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-secondary mt-3" (click)="exitEditMode()">Cancelar</button>
       </ng-template>
       <ng-template #add>
         <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
