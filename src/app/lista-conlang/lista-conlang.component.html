@@ -1,11 +1,87 @@
 <app-navbar-interativo></app-navbar-interativo>
-<h1 class="display-4 text-center text-primary mt-4">Meus projetos</h1>
-<div class="row">
-  <div *ngIf="items && items.length > 0; else noProjects">
-    <div *ngFor="let item of items" class="col-md-4">
-      <div class="card mb-4 shadow-sm" [routerLink]="['/conlang_detail', item.PRJ_ID]" style="cursor: pointer;">
-        <div class="card-header">
+
+<!-- Page Title -->
+<h1 class="display-4 text-center text-primary mt-4">Meus Projetos</h1>
+
+<div class="container mt-4">
+
+  <!-- New Project Form Section -->
+  <h2 class="mb-4">Registrar Novo Projeto</h2>
+  <div class="row justify-content-left">
+    <div class="col-md-8">
+      <div class="form-group">
+
+        <!-- Project Name -->
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome do Projeto <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            id="nome"
+            [(ngModel)]="newProjeto.PRJ_NOME"
+            name="nome"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <!-- Project Description -->
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição</label>
+          <textarea
+            id="descricao"
+            [(ngModel)]="newProjeto.PRJ_DESCRICAO"
+            name="descricao"
+            class="form-control"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <!-- Phonetic Representation -->
+        <div class="mb-3">
+          <label for="fonotatica" class="form-label">Fonotática</label>
+          <input
+            type="text"
+            id="fonotatica"
+            [(ngModel)]="newProjeto.PRJ_FONOTATICA"
+            name="fonotatica"
+            class="form-control"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button class="btn btn-primary" (click)="addProject()">Registrar Projeto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- Display Projects Section -->
+<div class="container mt-5">
+  <h3 class="mb-4">Projetos Existentes</h3>
+  <div class="row">
+    <div *ngFor="let item of items" class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="card-title">{{ item.PRJ_NOME }}</h5>
+          <button 
+            class="btn btn-secondary" 
+            title="Editar Projeto">
+            <i class="bi bi-magic"></i>   Editar
+          </button>
+          <button 
+            class="btn btn-primary" 
+            title="Acessar Projeto"
+            [routerLink]="['/conlang_detail', item.PRJ_ID]">
+            <i class="bi bi-box-arrow-right"></i>   Acessar
+          </button>
+          <button 
+            class="btn btn-sm btn-danger" 
+            title="Excluir Projeto">
+            X
+          </button>
         </div>
         <div class="card-body">
           <p class="card-text">{{ item.PRJ_DESCRICAO }}</p>
@@ -13,8 +89,4 @@
       </div>
     </div>
   </div>
-  
-  <ng-template #noProjects>
-    <p class="text-muted text-center">Você ainda não possui projetos. <a [routerLink]="" class="text-decoration-none link-primary">Clique aqui para criar.</a></p>
-  </ng-template>
 </div>

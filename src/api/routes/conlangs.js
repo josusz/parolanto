@@ -17,6 +17,22 @@ router.get('/conlangs', async (req, res) => {
   }
 });
 
+router.post('/', auth, async (req, res) => {
+  const usuario = req.usuario.id;
+  const { PRJ_NOME: nome, PRJ_DESCRICAO: descr, PRJ_FONOTATICA: phono } = req.body.projeto;
+  try{
+
+      const sql = 'INSERT INTO TB_PROJETO (PRJ_USRID, PRJ_NOME, PRJ_DESCRICAO, PRJ_FONOTATICA) VALUES (?, ?, ?, ?)';
+      const values = [usuario, nome, descr, phono];
+      await query(sql, values);
+      return res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
+  }
+  catch (error) {
+      console.error('Erro ao inserir vocábulo:', error);
+      res.status(500).json({ error: 'Ocorreu um erro ao cadastrar projeto.' });
+  }
+});
+
 router.get('/usersconlangs', auth, async (req, res) => {
   try {
     const usuario = req.usuario.id;

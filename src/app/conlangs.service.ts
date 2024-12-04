@@ -35,4 +35,13 @@ export class ConlangsService {
   getProjetosFeed(ordem: string = 'aleatorio'): Observable<listaConlangsResponse> {
     return this.http.get<listaConlangsResponse>(`${this.apiUrl}/feed?ordem=${ordem}`);
   }  
+
+  addProject(projeto: conlang): Observable<conlang> {
+    
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<conlang>(this.apiUrl, { projeto }, { headers });
+
+  }
 }
