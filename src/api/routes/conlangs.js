@@ -138,4 +138,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const sql = 'DELETE FROM TB_PROJETO WHERE PRJ_ID = ?';
+
+  try {
+      const results = await query(sql, [id]);
+
+      if (results.affectedRows === 0) {
+          return res.status(404).json({ error: 'Projeto não encontrado.' });
+      }
+      
+      res.status(204).send(); 
+  } catch (error) {
+      console.error('Erro ao remover projeto:', error);
+      res.status(500).json({ error: 'Um erro ocorreu durante a remoção.' });
+  }
+});
+
 export default router;

@@ -50,11 +50,29 @@ export class ListaConlangComponent implements OnInit {
       PRJ_ID: undefined
   };
   }
+  
+  exitEditMode(): void{
+    
+  }
 
   updateList(): void {
     this.serviceConlangs.getConlangsFromUser().subscribe((resposta: conlang[]) => {
       this.items = resposta;
     });
+  }
+
+  confirmRemoveProject(project: conlang): void {
+    const confirmRemove = confirm(`Tem certeza em remover "${project.PRJ_NOME}"?`);
+    if (confirmRemove) {
+      if(project.PRJ_ID != null)
+      {
+        this.serviceConlangs.removeProject(project.PRJ_ID).subscribe(() => {
+          this.updateList(); // Refresh the list after removing
+          if(project.PRJ_ID === this.newProjeto.PRJ_ID)
+            this.exitEditMode();
+        });
+      }
+    }
   }
 
 }

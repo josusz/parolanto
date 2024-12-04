@@ -69,7 +69,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     const id = req.params.id;
-
+    console.log(id);
     const sql = 'DELETE FROM TB_VOCABULO WHERE VOC_ID = ?';
 
     try {

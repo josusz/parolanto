@@ -44,4 +44,8 @@ export class ConlangsService {
     return this.http.post<conlang>(this.apiUrl, { projeto }, { headers });
 
   }
+
+  removeProject(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
