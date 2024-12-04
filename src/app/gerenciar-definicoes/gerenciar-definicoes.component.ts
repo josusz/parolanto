@@ -64,8 +64,7 @@ export class GerenciarDefinicoesComponent implements OnInit {
   confirmEditDef(): void{
     this.serviceDef.editDef(this.newDef).subscribe((updatedDef) => {
     this.getDefs(); // Refresh the list after editing
-    this.resetObj(); // Reset the form
-    this.editingMode = false;
+    this.exitEditMode();
     });
   }
 

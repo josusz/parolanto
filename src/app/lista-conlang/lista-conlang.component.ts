@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class ListaConlangComponent implements OnInit {
   newProjeto! : conlang;
   items: conlang[] = [];
-  //usuario: string|null = '';
+  editingMode: boolean = false;
   constructor(private serviceConlangs: ConlangsService, private serviceUsers: UsuarioService) { }
 
   ngOnInit(): void {
@@ -42,6 +42,18 @@ export class ListaConlangComponent implements OnInit {
       });
   }
 
+  editProject(project: conlang)
+  {
+    this.newProjeto = project;
+    this.editingMode = true;
+  }
+
+  confirmEditProject(): void{
+    this.serviceConlangs.editProject(this.newProjeto).subscribe((updatedProject) => {
+    this.updateList(); // Refresh the list after editing
+    this.exitEditMode();
+    });
+  }
   resetObj(): void {
     this.newProjeto = {
       PRJ_DESCRICAO: "",
@@ -52,7 +64,8 @@ export class ListaConlangComponent implements OnInit {
   }
   
   exitEditMode(): void{
-    
+    this.editingMode = false;
+    this.resetObj();
   }
 
   updateList(): void {

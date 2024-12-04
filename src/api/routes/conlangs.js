@@ -104,6 +104,31 @@ router.get('/feed', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  const projectId = req.params.id;
+  const { PRJ_NOME: name, PRJ_DESCRICAO: descr, PRJ_FONOTATICA: phono } = req.body;
+
+  try {
+      const sql = `
+          UPDATE TB_PROJETO
+          SET PRJ_NOME = ?, PRJ_DESCRICAO = ?, PRJ_FONOTATICA = ?
+          WHERE PRJ_ID = ?;
+      `;
+      const values = [name, descr, phono, projectId];
+
+      const result = await query(sql, values);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ error: 'Projeto não encontrado.' });
+      }
+
+      res.status(200).json({ message: 'Projeto editado com sucesso.' });
+  } catch (error) {
+      console.error('Error na edição do projeto:', error);
+      res.status(500).json({ error: 'Um erro ocorreu na edição.' });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
   try {

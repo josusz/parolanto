@@ -48,4 +48,8 @@ export class ConlangsService {
   removeProject(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  editProject(project: conlang): Observable<conlang> {
+    return this.http.put<conlang>(`${this.apiUrl}/${project.PRJ_ID}`, project);
+  }
 }

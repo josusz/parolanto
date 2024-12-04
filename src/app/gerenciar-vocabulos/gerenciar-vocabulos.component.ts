@@ -91,8 +91,7 @@ export class GerenciarVocabulosComponent {
   confirmEditWord(): void{
     this.serviceVocab.editWord(this.newWord).subscribe((updatedWord) => {
     this.getWords(); // Refresh the list after editing
-    this.newWord = {VOC_ID: undefined, VOC_PRJID: this.id, VOC_ROMANIZACAO: '', VOC_TRANSCRICAO: '', contagem: 0 }; // Reset the form
-    this.editingMode = false;
+    this.exitEditMode();
     });
   }
 

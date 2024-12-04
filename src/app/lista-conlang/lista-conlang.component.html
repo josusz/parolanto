@@ -1,17 +1,21 @@
 <app-navbar-interativo></app-navbar-interativo>
 
-<!-- Page Title -->
 <h1 class="display-4 text-center text-primary mt-4">Meus Projetos</h1>
 
 <div class="container mt-4">
 
-  <!-- New Project Form Section -->
-  <h2 class="mb-4">Registrar Novo Projeto</h2>
+  <div *ngIf="editingMode; then  editHeader; else addHeader"></div>
+  <ng-template #editHeader>
+    <h2 class="mb-4">Editando {{newProjeto.PRJ_DESCRICAO}}</h2>
+  </ng-template>
+  <ng-template #addHeader>
+    <h2 class="mb-4">Registrar Novo Projeto</h2>
+  </ng-template>
+
   <div class="row justify-content-left">
     <div class="col-md-8">
       <div class="form-group">
 
-        <!-- Project Name -->
         <div class="mb-3">
           <label for="nome" class="form-label">Nome do Projeto <span class="text-danger">*</span></label>
           <input
@@ -24,7 +28,6 @@
           />
         </div>
 
-        <!-- Project Description -->
         <div class="mb-3">
           <label for="descricao" class="form-label">Descrição</label>
           <textarea
@@ -36,7 +39,6 @@
           ></textarea>
         </div>
 
-        <!-- Phonetic Representation -->
         <div class="mb-3">
           <label for="fonotatica" class="form-label">Fonotática</label>
           <input
@@ -48,9 +50,16 @@
           />
         </div>
 
-        <!-- Submit Button -->
         <div class="text-center">
-          <button class="btn btn-primary" (click)="addProject()">Registrar Projeto</button>
+          <div *ngIf="editingMode; then  edit; else add"></div>
+          <ng-template #edit>
+            <button class="btn btn-primary" (click)="confirmEditProject()">Confirmar edições</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-secondary" (click)="exitEditMode()">Cancelar</button>
+          </ng-template>
+          <ng-template #add>
+            <button class="btn btn-primary" (click)="addProject()">Registrar Projeto</button>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -68,7 +77,8 @@
           <h5 class="card-title">{{ item.PRJ_NOME }}</h5>
           <button 
             class="btn btn-secondary" 
-            title="Editar Projeto">
+            title="Editar Projeto"
+            (click)="editProject(item)">
             <i class="bi bi-magic"></i>   Editar
           </button>
           <button 
