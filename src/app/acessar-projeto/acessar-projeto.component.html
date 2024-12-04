@@ -14,58 +14,27 @@
 </div>
 
 <div class="container mt-4">
-  <h2>Words Associated with Project</h2>
-
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Romanização</th>
-        <th>Transcrição</th>
-        <th>Definições</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let word of words">
-        <td>{{ word.VOC_ROMANIZACAO }}</td>
-        <td>{{ word.VOC_TRANSCRICAO }}</td>
-        <td><a [routerLink]="['/gerenciar_defs', word.VOC_ID]" class="text-primary text-decoration-underline">
-            {{ word.contagem }}
-          </a></td>
-        <td>
-          <button class="btn btn-danger"
-            (click)="confirmRemoveWord(word)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button class="btn btn-secondary" (click)="editWord(word)">Editar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="form-group">
-    <div class="form-group">
-      <div *ngIf="editingMode; then  editHeader; else addHeader"></div>
-      <ng-template #editHeader>
-        <h4>Editando '{{newWord.VOC_ROMANIZACAO}}'</h4>
-      </ng-template>
-      <ng-template #addHeader>
-        <h4>Adicionar nova palavra</h4>
-      </ng-template>
-      <label for="spelling">Romanização</label>
-      <input type="text" id="spelling" class="form-control" [(ngModel)]="newWord.VOC_ROMANIZACAO" required>
-
-      <label for="transcription">Transcrição</label>
-      <input type="text" id="transcription" class="form-control" [(ngModel)]="newWord.VOC_TRANSCRICAO" required>
-
-      <div *ngIf="editingMode; then  edit; else add"></div>
-      <ng-template #edit>
-        <button class="btn btn-primary mt-3" (click)="confirmEditWord()">Editar vocábulo</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-secondary mt-3" (click)="exitEditMode()">Cancelar</button>
-      </ng-template>
-      <ng-template #add>
-        <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
-      </ng-template>
+  <nav>
+    <div class="nav nav-tabs ms-auto" id="nav-tab" role="tablist">
+      <button class="nav-link active position-relative" id="nav-home-tab" data-bs-toggle="tab"
+        data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+        Vocabulário
+      </button>
+      <button class="nav-link position-relative" id="nav-profile-tab" data-bs-toggle="tab"
+        data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+        aria-selected="false">Regras
+      </button>
+      <button class="nav-link position-relative" id="nav-profile-tab" data-bs-toggle="tab"
+        data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+        aria-selected="false">Exemplos
+      </button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+      <app-gerenciar-vocabulos [id]="id"></app-gerenciar-vocabulos>
     </div>
   </div>
+  
   <app-comentarios-projeto [idProjeto]="id"></app-comentarios-projeto>
 </div>
