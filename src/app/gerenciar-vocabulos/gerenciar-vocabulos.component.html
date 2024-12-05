@@ -13,19 +13,22 @@
         <tr *ngFor="let word of words">
         <td>{{ word.VOC_ROMANIZACAO }}</td>
         <td>{{ word.VOC_TRANSCRICAO }}</td>
-        <td><a [routerLink]="['/gerenciar_defs', word.VOC_ID]" class="text-primary text-decoration-underline">
+        <td><a [routerLink]="['/gerenciar_defs', word.VOC_ID, master.toString()]" class="text-primary text-decoration-underline">
             {{ word.contagem }}
             </a></td>
         <td>
+          <div *ngIf="master; then  allowEdit;"></div>
+          <ng-template #allowEdit>
             <button class="btn btn-danger"
-            (click)="confirmRemoveWord(word)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-secondary" (click)="editWord(word)">Editar</button>
+              (click)="confirmRemoveWord(word)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-secondary" (click)="editWord(word)">Editar</button>
+            </ng-template>
         </td>
         </tr>
     </tbody>
 </table>
 
-<div class="form-group">
+<div *ngIf="master" class="form-group">
     <div class="form-group">
       <div *ngIf="editingMode; then  editHeader; else addHeader"></div>
       <ng-template #editHeader>
@@ -47,7 +50,7 @@
         <button class="btn btn-secondary mt-3" (click)="exitEditMode()">Cancelar</button>
       </ng-template>
       <ng-template #add>
-        <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
+          <button class="btn btn-primary mt-3" (click)="addWord()">Adicionar vocábulo</button>
       </ng-template>
     </div>
 </div>

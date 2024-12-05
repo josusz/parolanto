@@ -27,5 +27,5 @@ export const routes: Routes = [
     { path: 'parolanto', redirectTo: 'pagina-inicial-parolanto', pathMatch: 'full' },
     { path: 'conlangs', component: ListaConlangComponent },
     { path: "conlang_detail/:id", component: AcessarProjetoComponent },
-    { path: "gerenciar_defs/:id", component: GerenciarDefinicoesComponent },
+    { path: "gerenciar_defs/:id/:master", component: GerenciarDefinicoesComponent },
 ];

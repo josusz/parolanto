@@ -6,6 +6,10 @@ import { DefinicaoService } from '../definicao.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UsuarioService } from '../usuario.service';
+import { conlang } from '../lista-geral';
+import { projeto_detail } from '../projeto_detail';
+import { ConlangsService } from '../conlangs.service';
 
 @Component({
   selector: 'app-gerenciar-vocabulos',
@@ -16,18 +20,26 @@ import { FormsModule } from '@angular/forms';
 })
 export class GerenciarVocabulosComponent {
   @Input() id!: number;
+  master: boolean = false;
   words: vocabulo[] = [];
+  projeto!: projeto_detail;
   newWord!: vocabulo;
   editingMode: boolean = false;
 
-  constructor(private route: ActivatedRoute, private serviceVocab: VocabService, private serviceDef: DefinicaoService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private serviceConlangs: ConlangsService, private serviceVocab: VocabService, private serviceUser: UsuarioService, private serviceDef: DefinicaoService, private router: Router) { }
 
   ngOnInit(): void {
-    
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.carregarProjeto();
     this.resetObj();
-
     this.getWords();
+  }
+
+  carregarProjeto(): void{
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.serviceConlangs.detailConlang(this.id).subscribe((resposta: projeto_detail) => {
+      this.projeto = resposta;
+      this.checarUser();
+    });
   }
   resetObj()
   {
@@ -108,5 +120,16 @@ export class GerenciarVocabulosComponent {
         });
       }
     }
+    
+  }
+  checarUser(): void{
+    this.serviceUser.getUsuarioAutenticadoId().subscribe((id: number) => {
+      if(this.projeto.USR_ID == id)
+      {
+        this.master = true;
+        
+      }
+    });
+    
   }
 }

@@ -22,11 +22,14 @@ export class GerenciarDefinicoesComponent implements OnInit {
   defs: definicao[] = [];
   newDef!: definicao;
   editingMode: boolean = false;
+  master: boolean = false;
 
   constructor(private route: ActivatedRoute, private serviceVocab: VocabService, private serviceDef: DefinicaoService) {}
 
   ngOnInit(): void {
+    
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.master = this.route.snapshot.paramMap.get('master') === 'true';
     this.resetObj();
     this.serviceVocab.detailWord(this.id).subscribe((resposta: vocab_detail) => {
       this.word = resposta;

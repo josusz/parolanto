@@ -5,6 +5,9 @@ import { RegraService } from '../regra.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ConlangsService } from '../conlangs.service';
+import { projeto_detail } from '../projeto_detail';
+import { UsuarioService } from '../usuario.service';
 
 @Component({
   selector: 'app-gerenciar-regras',
@@ -18,15 +21,33 @@ export class GerenciarRegrasComponent {
   regras: regra[] = [];
   newRegra!: regra;
   editingMode: boolean = false;
+  projeto!: projeto_detail;
+  master: boolean = false;
 
-  constructor(private route: ActivatedRoute, private serviceRegra: RegraService) { }
+  constructor(private route: ActivatedRoute, private serviceRegra: RegraService, private serviceConlangs: ConlangsService, private serviceUser: UsuarioService) { }
 
   ngOnInit(): void {
     
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.carregarProjeto();
     this.resetObj();
-
     this.getRegras();
+  }
+
+  carregarProjeto(): void{
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.serviceConlangs.detailConlang(this.id).subscribe((resposta: projeto_detail) => {
+      this.projeto = resposta;
+      this.checarUser();
+    });
+  }
+  checarUser(): void{
+    this.serviceUser.getUsuarioAutenticadoId().subscribe((id: number) => {
+      if(this.projeto.USR_ID == id)
+      {
+        this.master = true;
+        console.log("veio: " + this.master);
+      }
+    });
   }
   resetObj()
   {

@@ -206,6 +206,18 @@ router.post('/alteracaoSenhaLink', validaEmail, async (req, res) => {
   }
 })
 
+router.get('/userlog', auth, async (req, res) => {
+  try {
+    const usuario = req.usuario.id;
+
+    // Envia os resultados como resposta
+    res.json(usuario);
+  } catch (error) {
+    console.error('Erro ao executar a query:', error);
+    res.status(500).json({ error: 'Erro ao capturar id do usuário' });
+  }
+});
+
 router.get('/perfilUsuarioAutenticado', auth, async (req, res) => {
   try {
     const usuario = await query('SELECT * FROM TB_USUARIO WHERE USR_ID = ?', [req.usuario.id]);
@@ -396,5 +408,7 @@ router.get('/:id/contar-projetos', async (req, res) => {
     res.status(500).json({ message: 'Erro no servidor ao contar projetos.' });
   }
 });
+
+
 
 export default router;

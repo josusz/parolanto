@@ -52,6 +52,13 @@ export class UsuarioService {
     return this.http.get<any>(`${this.apiUrl}/perfilUsuarioAutenticado`, { headers });
   }
 
+  getUsuarioAutenticadoId(): Observable<number> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<number>(`${this.apiUrl}/userlog`, { headers });
+  }
+
+
   getUsuarioById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }

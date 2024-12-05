@@ -14,6 +14,7 @@ import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativ
 import { GerenciarVocabulosComponent } from '../gerenciar-vocabulos/gerenciar-vocabulos.component';
 import { GerenciarRegrasComponent } from '../gerenciar-regras/gerenciar-regras.component';
 import { GerenciarExemplosComponent } from '../gerenciar-exemplos/gerenciar-exemplos.component';
+import { UsuarioService } from '../usuario.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { GerenciarExemplosComponent } from '../gerenciar-exemplos/gerenciar-exem
 export class AcessarProjetoComponent implements OnInit {
   projeto!: projeto_detail;
   id!: number;
-  constructor(private route: ActivatedRoute, private serviceConlangs: ConlangsService, private serviceVocab: VocabService, private serviceDef: DefinicaoService) { }
+  constructor(private route: ActivatedRoute, private serviceUser: UsuarioService, private serviceConlangs: ConlangsService, private serviceVocab: VocabService, private serviceDef: DefinicaoService) { }
 
   ngOnInit(): void {
     
@@ -34,5 +35,8 @@ export class AcessarProjetoComponent implements OnInit {
     this.serviceConlangs.detailConlang(this.id).subscribe((resposta: projeto_detail) => {
       this.projeto = resposta;
     });
+
   }
+
+  
 }

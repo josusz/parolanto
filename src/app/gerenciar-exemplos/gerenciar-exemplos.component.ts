@@ -5,6 +5,9 @@ import { ExemploService } from '../exemplo.service';
 import { exemplo } from '../exemplos';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UsuarioService } from '../usuario.service';
+import { ConlangsService } from '../conlangs.service';
+import { projeto_detail } from '../projeto_detail';
 
 @Component({
   selector: 'app-gerenciar-exemplos',
@@ -18,14 +21,32 @@ export class GerenciarExemplosComponent {
   exemplos: exemplo[] = [];
   newExemplo!: exemplo;
   editingMode: boolean = false;
+  projeto!: projeto_detail;
+  master: boolean = false;
 
-  constructor(private route: ActivatedRoute, private serviceExemplo: ExemploService) { }
+  constructor(private route: ActivatedRoute, private serviceExemplo: ExemploService, private serviceUser: UsuarioService, private serviceConlangs: ConlangsService) { }
   ngOnInit(): void {
     
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.carregarProjeto();
     this.resetObj();
 
     this.getExemplos();
+  }
+  carregarProjeto(): void{
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.serviceConlangs.detailConlang(this.id).subscribe((resposta: projeto_detail) => {
+      this.projeto = resposta;
+      this.checarUser();
+    });
+  }
+  checarUser(): void{
+    this.serviceUser.getUsuarioAutenticadoId().subscribe((id: number) => {
+      if(this.projeto.USR_ID == id)
+      {
+        this.master = true;
+        console.log("veio: " + this.master);
+      }
+    });
   }
   resetObj()
   {

@@ -13,14 +13,14 @@
         <td>{{ exemplo.EXE_TITULO }}</td>
         <td>{{ exemplo.EXE_CORPO }}</td>
         <td>
-            <button class="btn btn-danger"
+            <button *ngIf="master" class="btn btn-danger"
             (click)="confirmRemoveExemplo(exemplo)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
         </tr>
     </tbody>
 </table>
 
-<div class="form-group">
+<div *ngIf="master" class="form-group">
     <div class="form-group">
     <h4>Adicionar novo exemplo</h4>
       <label for="title">Título</label>

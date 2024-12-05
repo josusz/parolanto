@@ -12,7 +12,7 @@
         <tr *ngFor="let regra of regras">
         <td>{{ regra.REG_TITULO }}</td>
         <td>{{ regra.REG_CORPO }}</td>
-        <td>
+        <td *ngIf="master">
             <button class="btn btn-danger"
             (click)="confirmRemoveRegra(regra)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-secondary" (click)="editRegra(regra)">Editar</button>
@@ -21,7 +21,7 @@
     </tbody>
 </table>
 
-<div class="form-group">
+<div *ngIf="master" class="form-group">
     <div class="form-group">
       <div *ngIf="editingMode; then  editHeader; else addHeader"></div>
       <ng-template #editHeader>

@@ -48,6 +48,8 @@ router.get('/usersconlangs', auth, async (req, res) => {
   }
 });
 
+
+
 //GET para pesquisar projetos por nome (Campo "Pesquisar" do navbar-interativo)
 router.get('/pesquisar', async (req, res) => {
   const termo = `%${req.query.termo}%`;
