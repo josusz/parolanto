@@ -1,0 +1,49 @@
+<h2>Regras do Projeto</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+        <th>Título</th>
+        <th>Corpo</th>
+        <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let regra of regras">
+        <td>{{ regra.REG_TITULO }}</td>
+        <td>{{ regra.REG_CORPO }}</td>
+        <td>
+            <button class="btn btn-danger"
+            (click)="confirmRemoveRegra(regra)">Remover</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-secondary" (click)="editRegra(regra)">Editar</button>
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="form-group">
+    <div class="form-group">
+      <div *ngIf="editingMode; then  editHeader; else addHeader"></div>
+      <ng-template #editHeader>
+        <h4>Editando '{{newRegra.REG_TITULO}}'</h4>
+      </ng-template>
+      <ng-template #addHeader>
+        <h4>Adicionar nova regra</h4>
+      </ng-template>
+      <label for="title">Título</label>
+      <input type="text" id="title" class="form-control" [(ngModel)]="newRegra.REG_TITULO" required>
+
+      <label for="transcription">Corpo</label>
+      <input type="text" id="transcription" class="form-control" [(ngModel)]="newRegra.REG_CORPO" required>
+
+      <div *ngIf="editingMode; then  edit; else add"></div>
+      <ng-template #edit>
+        <button class="btn btn-primary mt-3" (click)="confirmEditRegra()">Editar regra</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-secondary mt-3" (click)="exitEditMode()">Cancelar</button>
+      </ng-template>
+      <ng-template #add>
+        <button class="btn btn-primary mt-3" (click)="addRegra()">Adicionar regra</button>
+      </ng-template>
+    </div>
+</div>

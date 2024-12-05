@@ -12,12 +12,13 @@ import { Observable } from 'rxjs';
 import { ComentariosComponent } from "../comentarios-projeto/comentarios-projeto.component";
 import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativo.component";
 import { GerenciarVocabulosComponent } from '../gerenciar-vocabulos/gerenciar-vocabulos.component';
+import { GerenciarRegrasComponent } from '../gerenciar-regras/gerenciar-regras.component';
 
 
 @Component({
   selector: 'app-acessar-projeto',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent, NavbarInterativoComponent, GerenciarVocabulosComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent, NavbarInterativoComponent, GerenciarVocabulosComponent, GerenciarRegrasComponent],
   templateUrl: './acessar-projeto.component.html',
   styleUrl: './acessar-projeto.component.css'
 })
