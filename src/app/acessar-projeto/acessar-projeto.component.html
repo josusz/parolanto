@@ -15,7 +15,7 @@
 
 <div class="container mt-4">
   <nav>
-    <div class="nav nav-tabs ms-auto" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs ms-auto mb-3" id="nav-tab" role="tablist">
       <button class="nav-link active position-relative" id="nav-home-tab" data-bs-toggle="tab"
         data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
         Vocabulário
@@ -34,10 +34,10 @@
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
       <app-gerenciar-vocabulos [id]="id"></app-gerenciar-vocabulos>
     </div>
-    <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="1">
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="1">
       <app-gerenciar-regras [id]="id"></app-gerenciar-regras>
     </div>
-    <div class="tab-pane fade show active" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile2-tab" tabindex="2">
+    <div class="tab-pane fade" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile2-tab" tabindex="2">
       <app-gerenciar-exemplos [id]="id"></app-gerenciar-exemplos>
     </div>
   </div>
