@@ -6,6 +6,7 @@ import vocabRouter from './routes/vocab.js';
 import defRouter from './routes/definicoes.js';
 import comentariosRouter from './routes/comentarios.js'
 import regrasRouter from './routes/regras.js';
+import exemplosRouter from './routes/exemplos.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use('/vocab', vocabRouter);
 app.use('/definicoes', defRouter);
 app.use('/comentarios', comentariosRouter);
 app.use('/regras', regrasRouter);
+app.use('/exemplos', exemplosRouter);
 
 app.get('/api', (req, res) => {
     res.status(200).json({

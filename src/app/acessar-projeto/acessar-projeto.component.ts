@@ -13,12 +13,13 @@ import { ComentariosComponent } from "../comentarios-projeto/comentarios-projeto
 import { NavbarInterativoComponent } from "../navbar-interativo/navbar-interativo.component";
 import { GerenciarVocabulosComponent } from '../gerenciar-vocabulos/gerenciar-vocabulos.component';
 import { GerenciarRegrasComponent } from '../gerenciar-regras/gerenciar-regras.component';
+import { GerenciarExemplosComponent } from '../gerenciar-exemplos/gerenciar-exemplos.component';
 
 
 @Component({
   selector: 'app-acessar-projeto',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent, NavbarInterativoComponent, GerenciarVocabulosComponent, GerenciarRegrasComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ComentariosComponent, NavbarInterativoComponent, GerenciarVocabulosComponent, GerenciarRegrasComponent, GerenciarExemplosComponent],
   templateUrl: './acessar-projeto.component.html',
   styleUrl: './acessar-projeto.component.css'
 })
