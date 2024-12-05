@@ -6,11 +6,12 @@ import { VocabService } from '../vocab.service';
 import { vocab_detail } from '../vocab_detail';
 import { definicao } from '../definicao';
 import { DefinicaoService } from '../definicao.service';
+import { NavbarInterativoComponent } from '../navbar-interativo/navbar-interativo.component';
 
 @Component({
   selector: 'app-gerenciar-definicoes',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarInterativoComponent],
   templateUrl: './gerenciar-definicoes.component.html',
   styleUrl: './gerenciar-definicoes.component.css'
 })

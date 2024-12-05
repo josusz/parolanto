@@ -34,7 +34,12 @@ router.post('/', async (req, res) => {
         const sql = 'INSERT INTO TB_VOCABULO (VOC_PRJID, VOC_ROMANIZACAO, VOC_TRANSCRICAO) VALUES (?, ?, ?)';
         const values = [idprj, spelling, transcription];
         await query(sql, values);
-        return res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
+
+        const fetchSql = 'SELECT * FROM TB_VOCABULO WHERE VOC_ID = LAST_INSERT_ID()';
+        const [newObject] = await query(fetchSql);
+
+        // Return the newly created object
+        return res.status(201).json(newObject);
     }
     catch (error) {
         console.error('Erro ao inserir vocábulo:', error);

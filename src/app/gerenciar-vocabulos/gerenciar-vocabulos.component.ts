@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { vocabulo } from '../vocab';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VocabService } from '../vocab.service';
 import { DefinicaoService } from '../definicao.service';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ export class GerenciarVocabulosComponent {
   newWord!: vocabulo;
   editingMode: boolean = false;
 
-  constructor(private route: ActivatedRoute, private serviceVocab: VocabService, private serviceDef: DefinicaoService) { }
+  constructor(private route: ActivatedRoute, private serviceVocab: VocabService, private serviceDef: DefinicaoService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -73,9 +73,10 @@ export class GerenciarVocabulosComponent {
 
       // Proceed to add the word
       const wordToAdd = { ...this.newWord};
-      this.serviceVocab.addWord(wordToAdd).subscribe(() => {
-        this.getWords(); // Refresh the list after adding
-        this.resetObj(); // Reset the form
+      this.serviceVocab.addWord(wordToAdd).subscribe((newObj) => {
+        /*this.getWords(); // Refresh the list after adding
+        this.resetObj(); // Reset the form*/
+        this.router.navigate(['/gerenciar_defs', newObj.VOC_ID]);
       });
 
     } else {
